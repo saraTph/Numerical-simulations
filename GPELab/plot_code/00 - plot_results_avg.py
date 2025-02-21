@@ -114,4 +114,4 @@ location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_c
 
 outarray = np.vstack((e_rel, sizeBEC, pop_avg, delta_values)).T
 header = 'energy \t size (m) \t pop \t delta_scan'
-np.savetxt(os.path.join(location, 'sim_3.txt'), outarray, header=header, delimiter='\t')
+np.savetxt(os.path.join(location, 'sim_4.txt'), outarray, header=header, delimiter='\t')
