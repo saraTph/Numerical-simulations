@@ -25,7 +25,7 @@ Deltax = (xmax - xmin)/Nx;
 a_bohr = 0.52917721e-10;
 a11 = (86.4014*a_bohr); 
 a22 = (33.2021*a_bohr);
-a12 = ((-53.1907 + 2* 2.2094737279638723)*a_bohr);
+a12 = ((-53.1907 + 2* 1.5633064362098417)*a_bohr);
 
 wr = 169*2*pi;   % radial trap frequency
 wz = 26*2*pi;    % axial trap frequncy
@@ -34,7 +34,7 @@ wz = 26*2*pi;    % axial trap frequncy
 delta_values = linspace(-2,2,40);
 delta_values = [-8 -7 -5 -4 -3 -2.5 delta_values 2.5 3 4 5 7 8];
 %Omega_values = linspace(4*wr,20*wr,10);
-Omega_values = 22300*2*pi;
+Omega_values = 11200*2*pi;
 %n_values = [4470090000.0000 4292790000.0000 3948990000.0000 3460290000.0000 2859090000.0000 2188590000.0000 1502790000.0000 866490000.0000 355290000.0000 55590000.0000];
 n_values = [4186709333.3333 3539989333.3333 2411669333.3333 1131989333.3333 196309333.3333];
 

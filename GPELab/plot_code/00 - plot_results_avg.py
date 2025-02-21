@@ -11,7 +11,8 @@ import os
 
 
 #%%
-mat = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\InstOptique\Simulations\GPELab\outputs\results\output_data.mat')
+#mat = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\InstOptique\Simulations\GPELab\outputs\results\output_data.mat')
+mat = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\output_data_0.mat')
 
 delta_values = mat.get('delta_values').squeeze()
 Omega_values = mat.get('Omega_values').squeeze()
@@ -22,11 +23,11 @@ RE = mat.get('RE')
 PE = mat.get('PE')
 e_tot = mat.get('energy_tot')
 
-data_exp5 = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\InstOptique\Simulations\GPELab\outputs\exp_data\data_MF_5.mat') 
+data_exp5 = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\data_5.mat') 
 size_exp5 = data_exp5.get('valY').squeeze()
 scan_exp5 = data_exp5.get('valX').squeeze()
 
-data_exp0 = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\InstOptique\Simulations\GPELab\outputs\exp_data\data_MF_0.mat') 
+data_exp0 = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\data_0.mat') 
 size_exp0 = data_exp0.get('valY').squeeze()
 scan_exp0 = data_exp0.get('valX').squeeze()
 
@@ -109,8 +110,8 @@ axS.grid()
 #figS.savefig(r'C:\Users\sarat\OneDrive\Documenti\InstOptique\Simulations\GPELab\outputs\size.png', dpi = 300)
 
 #%% Export
-location = r"C:\Users\sarat\OneDrive\Documenti\InstOptique\Simulations\GPELab\outputs\Export"
+location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export"
 
-# outarray = np.vstack((e_rel, sizeBEC, pop_avg, delta_values)).T
-# header = 'energy \t size (m) \t pop \t delta_scan'
-# np.savetxt(os.path.join(location, '8w_data_a+1.txt'), outarray, header=header, delimiter='\t')
+outarray = np.vstack((e_rel, sizeBEC, pop_avg, delta_values)).T
+header = 'energy \t size (m) \t pop \t delta_scan'
+np.savetxt(os.path.join(location, 'sim_0.txt'), outarray, header=header, delimiter='\t')
