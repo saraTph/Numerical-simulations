@@ -12,7 +12,7 @@ import os
 
 #%%
 #mat = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\InstOptique\Simulations\GPELab\outputs\results\output_data.mat')
-mat = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\output_data_0.mat')
+mat = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\output_data.mat')
 
 delta_values = mat.get('delta_values').squeeze()
 Omega_values = mat.get('Omega_values').squeeze()
@@ -114,4 +114,4 @@ location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_c
 
 outarray = np.vstack((e_rel, sizeBEC, pop_avg, delta_values)).T
 header = 'energy \t size (m) \t pop \t delta_scan'
-np.savetxt(os.path.join(location, 'sim_0.txt'), outarray, header=header, delimiter='\t')
+np.savetxt(os.path.join(location, 'sim_3.txt'), outarray, header=header, delimiter='\t')

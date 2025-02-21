@@ -12,26 +12,38 @@ import os
 
 #%% Import
 
-location = r"C:\Users\sarat\OneDrive\Documenti\InstOptique\Simulations\GPELab\outputs\Export"
-file = os.path.join(location, '4w_data.txt')
-en_4w, size_4w, pop_4w, delta_values = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
+Omega_values = [22300, 11200, 5600, 2810, 1410, 706]
 
-location = r"C:\Users\sarat\OneDrive\Documenti\InstOptique\Simulations\GPELab\outputs\Export"
-file = os.path.join(location, '8w_data.txt')
-en_8w, size_8w, pop_8w, delta_values = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
+#initialize simulation results
+en = np.ones((len(Omega_values),52))
+size = np.ones((len(Omega_values),52))
+pop = np.ones((len(Omega_values),52))
+delta_values = np.ones((len(Omega_values),52))
 
-pop = np.vstack((pop_4w, pop_8w))
-en = np.vstack((en_4w, en_8w))
-size = np.vstack((size_4w, size_8w))
+#initialize data exp
+size_exp = np.ones((len(Omega_values),39))
+scan_exp = np.ones((len(Omega_values),39))
 
-data_exp = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\InstOptique\Simulations\GPELab\outputs\results\data_MF.mat') 
-size_exp = data_exp.get('valY').squeeze()
-scan_exp = data_exp.get('valX').squeeze()
+location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export"
+file = os.path.join(location, 'sim_0.txt')
+en[0,:], size[0,:], pop[0,:], delta_values[0,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
+
+file = os.path.join(location, 'sim_1.txt')
+en[1,:], size[1,:], pop[1,:], delta_values[1,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
+
+file = os.path.join(location, 'sim_2.txt')
+en[2,:], size[2,:], pop[2,:], delta_values[2,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
+
+file = os.path.join(location, 'sim_3.txt')
+en[3,:], size[3,:], pop[3,:], delta_values[3,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
+
+data_exp = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\data_0') 
+size_exp[0,:] = data_exp.get('valY').squeeze()
+scan_exp[0,:] = data_exp.get('valX').squeeze()
 #%%
 
 wr = 169*2*np.pi #Hz
 wz = 26*2*np.pi  #Hz
-Omega_values = [4*wr, 8*wr]
 
 u = 1.66053906660e-27
 m = 39*u
@@ -51,18 +63,17 @@ V = 1/(0.05e-6**3)
 colors = plt.get_cmap('Set2').colors
 lw = 2
 
-#labels = [r'$\Omega = 4\omega_r$', r'$\Omega = 8\omega_r$', r'$\Omega \gg \omega_r$']
-labels = [r'$\Omega$ = 676 Hz', r'$\Omega$ = 1.35 kHz', r'$\Omega$ = 3.38 kHz']
+labels = [r'$\Omega$ = 22.3 kHz', r'$\Omega$ = 11.2 kHz', r'$\Omega$ = 5.6 kHz', r'$\Omega$ = 2.81 kHz', r'$\Omega$ = 1.41 kHz', r'$\Omega$ = 706 Hz']
 
 # Plotting the expressions
 fig, ax = plt.subplots(1,2,constrained_layout=True, figsize=(9,4))
 
 
 for i in range(np.size(Omega_values)):
-    Om = Omega_values[i]
+    Om = Omega_values[i] *2*np.pi
     
-    ax[0].plot(delta_values.T, en[i,:], label=labels[i], lw=lw, color=colors[i])
-    ax[1].plot(delta_values.T,pop[i,:], lw=lw, color=colors[i])
+    ax[0].plot(delta_values[i,:], en[i,:], label=labels[i], lw=lw, color=colors[i])
+    ax[1].plot(delta_values[i,:], pop[i,:], lw=lw, color=colors[i])
 
 ax[0].set_xlabel(r'$\delta/\Omega$', fontsize=14)
 ax[0].set_ylabel(r'$E_{released}/\omega_r$',fontsize = 14)
@@ -82,11 +93,11 @@ from matplotlib.ticker import AutoMinorLocator, MultipleLocator
 figS, axS = plt.subplots(1,1,constrained_layout=True, figsize=(5,4))
 
 for i in range(np.size(Omega_values)):
-    Om = Omega_values[i]
+    Om = Omega_values[i]*2*np.pi
     
-    axS.plot(delta_values.T, size[i,:]*10**3, label=labels[i], lw=lw, color=colors[i],zorder =1)
+    axS.plot(delta_values[i,:], size[i,:]*10**3, label=labels[i], lw=lw, color=colors[i],zorder =1)
 
-axS.plot(scan_exp+0.25, size_exp, label='exp', lw=lw, color='black' ,zorder =1)
+#axS.plot(scan_exp+0.25, size_exp, label='exp', lw=lw, color='black' ,zorder =1)
 
 xticks = np.linspace(-8,8,17)
 axS.set_xticks(xticks)    
