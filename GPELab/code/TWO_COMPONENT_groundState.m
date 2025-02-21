@@ -7,9 +7,9 @@
 Computation = 'Ground';
 Ncomponents = 2;
 Type = 'BESP'; % method to solve the Continuous Normalized Gradient Flow (CNGF)
-Deltat = 1e-1;
+Deltat = 2e-1;
 Stop_time = [];
-Stop_crit = {'MaxNorm',1e-5}; % epsilon
+Stop_crit = {'MaxNorm',1e-4}; % epsilon
 Method = Method_Var2d(Computation, Ncomponents, Type, Deltat, Stop_time, Stop_crit);
 xmin = -10; % computational domine dimensions
 xmax = 10;
@@ -31,8 +31,8 @@ wr = 169*2*pi;   % radial trap frequency
 wz = 26*2*pi;    % axial trap frequncy
 
 % define scan values for delta and Omega or n1D
-delta_values = linspace(-3,3,30);
-delta_values = [-8 -7 -5 -4 delta_values 4 5 7 8];
+delta_values = linspace(-2,2,40);
+delta_values = [-8 -7 -5 -4 -3 -2.5 delta_values 2.5 3 4 5 7 8];
 %delta_values = [0.1 0.22];
 %delta_values = 2;
 %Omega_values = linspace(4*wr,20*wr,10);
@@ -49,21 +49,10 @@ energy_1 = zeros(length(Omega_values),length(delta_values));
 energy_2 = zeros(length(Omega_values),length(delta_values));
 energy_tot = zeros(length(Omega_values),length(delta_values));
 
-chemPot_1 = zeros(length(Omega_values),length(delta_values));
-chemPot_2 = zeros(length(Omega_values),length(delta_values));
-chemPot_tot = zeros(length(Omega_values),length(delta_values));
-
 IE = zeros(length(Omega_values),length(delta_values));
 RE = zeros(length(Omega_values),length(delta_values));
 PE = zeros(length(Omega_values),length(delta_values));
 KE = zeros(length(Omega_values),length(delta_values));
-
-densityProfile1D_comp1 = zeros(length(Omega_values),Nx);
-densityProfile1D_comp2 = zeros(length(Omega_values),Nx);
-
-size_1 = zeros(length(Omega_values),length(delta_values));
-size_2 = zeros(length(Omega_values),length(delta_values));
-
 
 
 %% evaluate groung state soltion
@@ -148,12 +137,6 @@ for n1D = n_values
         energy_1(j,i) = Outputs.Energy{1}(end);
         energy_2(j,i) = Outputs.Energy{2}(end);
         energy_tot(j,i) = energy_1(j,i) + energy_2(j,i);
-
-        chemPot_1(j,i) = Outputs.Chemical_potential{1}(end);
-        chemPot_2(j,i) = Outputs.Chemical_potential{2}(end);
-
-        size_1(j,i) = Outputs.x_rms{1}(end);
-        size_2(j,i) = Outputs.x_rms{2}(end);
         
 
         % Calculate Energies
@@ -162,34 +145,28 @@ for n1D = n_values
         KE(j,i) = KineticEnergy(Phi_1,Delta,Geometry2D);
         PE(j,i) = PotentialEnergy(Phi_1,gamma_x,gamma_y,Geometry2D);
 
-        if delta == 2
-
-            %     1D density profiles
-            %     Compute probability densities in 2D ground state solution
-            Psi1_1_density = abs(Phi_1{1}).^2;  %component 1
-            Psi1_2_density = abs(Phi_1{2}).^2;  %component 2
-            
-            %     Integrate along the Y-direction to get 1D profile along X
-            Y_vals = Geometry2D.Y(:,1);
-            Density1_1D_1 = trapz(Y_vals, Psi1_1_density, 1); % Integrate along Y
-            Density1_1D_2 = trapz(Y_vals, Psi1_2_density, 1); % Integrate along Y
-        end
+%         if delta == 2
+% 
+%             %     1D density profiles
+%             %     Compute probability densities in 2D ground state solution
+%             Psi1_1_density = abs(Phi_1{1}).^2;  %component 1
+%             Psi1_2_density = abs(Phi_1{2}).^2;  %component 2
+%             
+%             %     Integrate along the Y-direction to get 1D profile along X
+%             Y_vals = Geometry2D.Y(:,1);
+%             Density1_1D_1 = trapz(Y_vals, Psi1_1_density, 1); % Integrate along Y
+%             Density1_1D_2 = trapz(Y_vals, Psi1_2_density, 1); % Integrate along Y
+%         end
 
         
         i=i+1;
-    end
-    
-    if delta == 2
-        % save 1D delsity
-        densityProfile1D_comp1(j,:) = Density1_1D_1;
-        densityProfile1D_comp2(j,:) = Density1_1D_2;
     end
 
     
     j=j+1;
 end
 
-outputFolder = 'C:\Users\sarat\OneDrive\Documenti\InstOptique\Simulations\GPELab\outputs\results\';  % Change this to your desired folder name
+outputFolder = 'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs';  % Change this to your desired folder name
 fileName = 'output_data.mat';
 
 % Check if the folder exists, if not, create it
