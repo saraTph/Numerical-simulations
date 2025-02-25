@@ -7,7 +7,7 @@
 Computation = 'Ground';
 Ncomponents = 2;
 Type = 'BESP'; % method to solve the Continuous Normalized Gradient Flow (CNGF)
-Deltat = 2e-1;
+Deltat = 1e-1;
 Stop_time = [];
 Stop_crit = {'MaxNorm',1e-4}; % epsilon
 Method = Method_Var2d(Computation, Ncomponents, Type, Deltat, Stop_time, Stop_crit);
@@ -23,9 +23,9 @@ Deltax = (xmax - xmin)/Nx;
 %% set physical quantities
 
 a_bohr = 0.52917721e-10;
-a11 = (86.4014*a_bohr); 
-a22 = (33.2021*a_bohr);
-a12 = ((-53.1907 + 2* 0.39313233050455804)*a_bohr);
+a11 = ((86.4014+1.65)*a_bohr); 
+a22 = (33.2755*a_bohr);
+a12 = ((-53.1022 + 0* 2 * 0.7843132831992122)*a_bohr);
 
 wr = 169*2*pi;   % radial trap frequency
 wz = 26*2*pi;    % axial trap frequncy
@@ -33,10 +33,11 @@ wz = 26*2*pi;    % axial trap frequncy
 % define scan values for delta and Omega or n1D
 delta_values = linspace(-2,2,40);
 delta_values = [-8 -7 -5 -4 -3 -2.5 delta_values 2.5 3 4 5 7 8];
+%delta_values = [-8 0.25 8];
 %Omega_values = linspace(4*wr,20*wr,10);
-Omega_values = 706*2*pi;
-%n_values = [4470090000.0000 4292790000.0000 3948990000.0000 3460290000.0000 2859090000.0000 2188590000.0000 1502790000.0000 866490000.0000 355290000.0000 55590000.0000];
+Omega_values = 2810*2*pi;
 n_values = [4186709333.3333 3539989333.3333 2411669333.3333 1131989333.3333 196309333.3333];
+%n_values = [3894613333.3333, 3293013333.3333,  2243413333.3333,1053013333.3333, 182613333.3333];
 
 %% initialize output vectors
 P = zeros(length(Omega_values),length(delta_values));
@@ -53,7 +54,7 @@ PE = zeros(length(Omega_values),length(delta_values));
 KE = zeros(length(Omega_values),length(delta_values));
 
 
-%% evaluate groung state soltion
+%% evaluate groung state
 j = 1;% scan of densities (N)
 for n1D = n_values
     n1D
@@ -176,3 +177,4 @@ end
 save(fullfile(outputFolder, fileName), 'Omega_values','delta_values', ...
     'energy_tot','PE','KE',"IE",'RE', ...
     'P','P_down','P_up');
+beep;

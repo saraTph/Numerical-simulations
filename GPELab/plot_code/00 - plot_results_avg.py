@@ -11,7 +11,7 @@ import os
 
 
 #%%
-#mat = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\InstOptique\Simulations\GPELab\outputs\results\output_data.mat')
+#mat = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\output_data_4.mat')
 mat = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\output_data.mat')
 
 delta_values = mat.get('delta_values').squeeze()
@@ -23,13 +23,16 @@ RE = mat.get('RE')
 PE = mat.get('PE')
 e_tot = mat.get('energy_tot')
 
-data_exp5 = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\data_5.mat') 
-size_exp5 = data_exp5.get('valY').squeeze()
-scan_exp5 = data_exp5.get('valX').squeeze()
+# data_exp5 = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\data_5.mat') 
+# size_exp5 = data_exp5.get('valY').squeeze()
+# scan_exp5 = data_exp5.get('valX').squeeze()
 
-data_exp0 = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\data_0.mat') 
-size_exp0 = data_exp0.get('valY').squeeze()
-scan_exp0 = data_exp0.get('valX').squeeze()
+
+
+scan = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\scan') 
+scan_exp0 = scan.get('valX').squeeze()
+data = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\MFdata') 
+size_exp0 = data.get('data5').squeeze()
 
 #%%
 Om = Omega_values
@@ -53,6 +56,7 @@ PE_avg = np.dot(weights, PE)
 KE_avg = np.dot(weights, KE)
 
 #%% Plots energy and pop
+
 colors = plt.get_cmap('Set3_r').colors
 lw = 2
 i = 2
@@ -91,7 +95,7 @@ sizeBEC = v * t_tof
 axS.plot(delta_values.T, sizeBEC*10**3, label='avg', lw=lw, color=colors[i],zorder =1)
 
 #axS.scatter(scan_exp5+0.25, size_exp5, marker = '.' ,label='exp', lw=lw, color='black' ,zorder =1)
-axS.scatter(scan_exp0 + 0.25, size_exp0, marker = '.' ,label='exp', lw=lw, color='black' ,zorder =1)
+axS.scatter(scan_exp0 +  0.09, size_exp0, marker = '.' ,label='exp', lw=lw, color='black' ,zorder =1)
     
 xticks = np.linspace(-8,8,17)
 axS.set_xticks(xticks)
@@ -112,6 +116,6 @@ axS.grid()
 #%% Export
 location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export"
 
-outarray = np.vstack((e_rel, sizeBEC, pop_avg, delta_values)).T
-header = 'energy \t size (m) \t pop \t delta_scan'
-np.savetxt(os.path.join(location, 'sim_4.txt'), outarray, header=header, delimiter='\t')
+# outarray = np.vstack((e_rel, sizeBEC, pop_avg, delta_values)).T
+# header = 'energy \t size (m) \t pop \t delta_scan'
+# np.savetxt(os.path.join(location, 'sim_3.txt'), outarray, header=header, delimiter='\t')
