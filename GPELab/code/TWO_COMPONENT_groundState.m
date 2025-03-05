@@ -23,9 +23,9 @@ Deltax = (xmax - xmin)/Nx;
 %% set physical quantities
 
 a_bohr = 0.52917721e-10;
-a11 = ((86.4014+1.65)*a_bohr); 
+a11 = (86.4014*a_bohr); 
 a22 = (33.2755*a_bohr);
-a12 = ((-53.1022 + 0* 2 * 0.7843132831992122)*a_bohr);
+a12 = (-53.1022*a_bohr);
 
 wr = 169*2*pi;   % radial trap frequency
 wz = 26*2*pi;    % axial trap frequncy
@@ -36,8 +36,8 @@ delta_values = [-8 -7 -5 -4 -3 -2.5 delta_values 2.5 3 4 5 7 8];
 %delta_values = [-8 0.25 8];
 %Omega_values = linspace(4*wr,20*wr,10);
 Omega_values = 2810*2*pi;
-n_values = [4186709333.3333 3539989333.3333 2411669333.3333 1131989333.3333 196309333.3333];
-%n_values = [3894613333.3333, 3293013333.3333,  2243413333.3333,1053013333.3333, 182613333.3333];
+%n_values = [4186709333.3333 3539989333.3333 2411669333.3333 1131989333.3333 196309333.3333];
+n_values = [3894613333.3333, 3293013333.3333,  2243413333.3333,1053013333.3333, 182613333.3333];
 
 %% initialize output vectors
 P = zeros(length(Omega_values),length(delta_values));

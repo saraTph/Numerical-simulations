@@ -116,6 +116,6 @@ axS.grid()
 #%% Export
 location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export"
 
-# outarray = np.vstack((e_rel, sizeBEC, pop_avg, delta_values)).T
-# header = 'energy \t size (m) \t pop \t delta_scan'
-# np.savetxt(os.path.join(location, 'sim_3.txt'), outarray, header=header, delimiter='\t')
+outarray = np.vstack((e_rel, sizeBEC, pop_avg, delta_values)).T
+header = 'energy \t size (m) \t pop \t delta_scan'
+np.savetxt(os.path.join(location, 'sim_5.txt'), outarray, header=header, delimiter='\t')
