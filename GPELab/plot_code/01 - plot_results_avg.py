@@ -26,19 +26,21 @@ delta_values = np.ones((len(Omega_values),len_sim))
 size_exp = np.ones((len(Omega_values),39))
 scan_exp = np.ones((39))
 
-location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\MF_tiemann_5n0"
+#location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\MF_tiemann_5n0"
+location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\MF_tiemann_5n0"
+
 
 # file = os.path.join(location, 'sim_0.txt')
 # en[0,:], size[0,:], pop[0,:], delta_values[0,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
-# file = os.path.join(location, 'sim_1.txt')
-# en[1,:], size[1,:], pop[1,:], delta_values[1,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
+file = os.path.join(location, 'sim_1.txt')
+en[1,:], size[1,:], pop[1,:], delta_values[1,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
-# file = os.path.join(location, 'sim_2.txt')
-# en[2,:], size[2,:], pop[2,:], delta_values[2,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
+file = os.path.join(location, 'sim_2.txt')
+en[2,:], size[2,:], pop[2,:], delta_values[2,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
-# file = os.path.join(location, 'sim_3.txt')
-# en[3,:], size[3,:], pop[3,:], delta_values[3,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
+file = os.path.join(location, 'sim_3.txt')
+en[3,:], size[3,:], pop[3,:], delta_values[3,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
 file = os.path.join(location, 'sim_4.txt')
 en[4,:], size[4,:], pop[4,:], delta_values[4,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
@@ -47,10 +49,12 @@ file = os.path.join(location, 'sim_5.txt')
 en[5,:], size[5,:], pop[5,:], delta_values[5,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
 # import experimental data
-scan = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\scan') 
-scan_exp[:] = scan.get('valX').squeeze()
+# scan = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\scan') 
+scan = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\exp_data\scan')
 
-data = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\MFdata') 
+scan_exp[:] = scan.get('valX').squeeze()
+# data = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\MFdata') 
+data = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\exp_data\MFdata')
 size_exp[5,:] = data.get('data0').squeeze()
 size_exp[4,:] = data.get('data1').squeeze() 
 size_exp[3,:] = data.get('data2').squeeze()
@@ -113,11 +117,12 @@ figS, axS = plt.subplots(1,1,constrained_layout=True, figsize=(10,7))
 
 shift = [0.12, 0.122, 0.158, 0.257, 0.257, 0.376]
 #for i in range(np.size(Omega_values)):
-for i in range(4,6):
+for i in range(1,6):
     Om = Omega_values[i]*2*np.pi
     
     axS.plot(delta_values[i,:], size[i,:]*10**3, label=labels[i], lw=lw, color=colors[i],zorder =1)
     axS.scatter(scan_exp + shift[i], size_exp[i,:], lw=2, marker = '2', color=colors[i])
+
     #print(np.min(size_exp[i,:]))
     #print(np.min( size[i,:]*10**3))
 
@@ -134,8 +139,9 @@ axS.yaxis.set_minor_locator(MultipleLocator(0.01))
 #axS.spines['left'].set_position(('data', 0))
 #ax.spines['left'].set_zorder(10)
 axS.legend()
-#axS.grid()
+axS.grid()
 
 #%%
 # fig.savefig(r'C:\Users\sarat\OneDrive\Documenti\InstOptique\Simulations\GPELab\outputs\results\25-02-17\Energy&Spin.png', dpi = 300)
-# figS.savefig(r'C:\Users\sarat\OneDrive\Documenti\InstOptique\Simulations\GPELab\outputs\results\25-02-17\Size_tof.png', dpi = 300)
+#figS.savefig(r'C:\Users\sarat\OneDrive\Documenti\InstOptique\Simulations\GPELab\outputs\results\25-02-17\Size_tof.png', dpi = 300)
+# figS.savefig(r'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Figures\MF_5n0.png', dpi = 300)

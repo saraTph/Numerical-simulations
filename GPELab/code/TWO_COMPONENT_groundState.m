@@ -35,10 +35,10 @@ delta_values = linspace(-2,2,40);
 delta_values = [-8 -7 -5 -4 -3 -2.5 delta_values 2.5 3 4 5 7 8];
 %delta_values = [-8 0.25 8];
 %Omega_values = linspace(4*wr,20*wr,10);
-Omega_values = 2810*2*pi;
+Omega_values = 11200*2*pi;
 %n_values = [4186709333.3333 3539989333.3333 2411669333.3333 1131989333.3333 196309333.3333];
 %n_values = [3894613333.3333, 3293013333.3333,  2243413333.3333,1053013333.3333, 182613333.3333];
-n_values = [4868266666.6667, 4116266666.6667, 2804266666.6667,1316266666.6667,228266666.6667];
+n_values = [4868266666.6667, 4116266666.6667,2804266666.6667,1316266666.6667,228266666.6667]; % n0 = 5
 %n_values = [4478805333.3333, 3786965333.3333, 2579925333.3333, 1210965333.3333, 210005333.3333];
 
 %% initialize output vectors
@@ -168,6 +168,7 @@ for n1D = n_values
 end
 
 outputFolder = 'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs';  % Change this to your desired folder name
+outputFolder = 'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\outputs';
 fileName = 'output_data.mat';
 
 % Check if the folder exists, if not, create it

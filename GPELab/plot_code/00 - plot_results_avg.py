@@ -11,8 +11,8 @@ import os
 
 
 #%%
-#mat = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\output_data_4.mat')
-mat = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\output_data.mat')
+#mat = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\output_data.mat')
+mat = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\outputs\output_data.mat')
 
 delta_values = mat.get('delta_values').squeeze()
 Omega_values = mat.get('Omega_values').squeeze()
@@ -29,9 +29,12 @@ e_tot = mat.get('energy_tot')
 
 
 
-scan = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\scan') 
+#scan = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\scan') 
+scan = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\exp_data\scan')
+
 scan_exp0 = scan.get('valX').squeeze()
-data = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\MFdata') 
+#data = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\MFdata') 
+data = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\exp_data\MFdata')
 size_exp0 = data.get('data5').squeeze()
 
 #%%
@@ -115,7 +118,8 @@ axS.grid()
 
 #%% Export
 location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export"
+location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\MF_tiemann_5n0"
 
 # outarray = np.vstack((e_rel, sizeBEC, pop_avg, delta_values)).T
 # header = 'energy \t size (m) \t pop \t delta_scan'
-# np.savetxt(os.path.join(location, 'sim_4.txt'), outarray, header=header, delimiter='\t')
+# np.savetxt(os.path.join(location, 'sim_1.txt'), outarray, header=header, delimiter='\t')
