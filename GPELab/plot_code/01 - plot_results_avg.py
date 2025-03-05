@@ -15,16 +15,18 @@ import os
 Omega_values = [22300, 11200, 5600, 2810, 1410, 706]
 
 #initialize simulation results
-en = np.ones((len(Omega_values),52))
-size = np.ones((len(Omega_values),52))
-pop = np.ones((len(Omega_values),52))
-delta_values = np.ones((len(Omega_values),52))
+len_sim = 52
+
+en = np.ones((len(Omega_values),len_sim))
+size = np.ones((len(Omega_values),len_sim))
+pop = np.ones((len(Omega_values),len_sim))
+delta_values = np.ones((len(Omega_values),len_sim))
 
 #initialize data exp
 size_exp = np.ones((len(Omega_values),39))
 scan_exp = np.ones((39))
 
-location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export"
+location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\MF_tiemann_5n0"
 
 # file = os.path.join(location, 'sim_0.txt')
 # en[0,:], size[0,:], pop[0,:], delta_values[0,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
@@ -41,8 +43,8 @@ location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_c
 file = os.path.join(location, 'sim_4.txt')
 en[4,:], size[4,:], pop[4,:], delta_values[4,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
-# file = os.path.join(location, 'sim_5.txt')
-# en[5,:], size[5,:], pop[5,:], delta_values[5,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
+file = os.path.join(location, 'sim_5.txt')
+en[5,:], size[5,:], pop[5,:], delta_values[5,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
 # import experimental data
 scan = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\scan') 
@@ -55,6 +57,7 @@ size_exp[3,:] = data.get('data2').squeeze()
 size_exp[2,:] = data.get('data3').squeeze()
 size_exp[1,:] = data.get('data4').squeeze()
 size_exp[0,:] = data.get('data5').squeeze()
+
 #%%
 
 # wr = 169*2*np.pi #Hz
@@ -76,7 +79,7 @@ size_exp[0,:] = data.get('data5').squeeze()
 
 #%%
 colors = plt.get_cmap('Set2').colors
-lw = 1
+lw = 1.7
 
 labels = [r'$\Omega$ = 22.3 kHz', r'$\Omega$ = 11.2 kHz', r'$\Omega$ = 5.6 kHz', r'$\Omega$ = 2.81 kHz', r'$\Omega$ = 1.41 kHz', r'$\Omega$ = 706 Hz']
 
@@ -110,13 +113,13 @@ figS, axS = plt.subplots(1,1,constrained_layout=True, figsize=(10,7))
 
 shift = [0.12, 0.122, 0.158, 0.257, 0.257, 0.376]
 #for i in range(np.size(Omega_values)):
-for i in range(5):
+for i in range(4,6):
     Om = Omega_values[i]*2*np.pi
     
     axS.plot(delta_values[i,:], size[i,:]*10**3, label=labels[i], lw=lw, color=colors[i],zorder =1)
-    axS.scatter(scan_exp + shift[i], size_exp[i,:], lw=1.2, marker = '2', color=colors[i])
+    axS.scatter(scan_exp + shift[i], size_exp[i,:], lw=2, marker = '2', color=colors[i])
     #print(np.min(size_exp[i,:]))
-    print(np.min( size[i,:]*10**3))
+    #print(np.min( size[i,:]*10**3))
 
 #axS.plot(scan_exp+0.25, size_exp, label='exp', lw=lw, color='black' ,zorder =1)
 
@@ -124,7 +127,7 @@ xticks = np.linspace(-8,8,17)
 axS.set_xticks(xticks)    
 axS.set_xlabel(r'$\delta/\Omega$', fontsize=14)
 axS.set_ylabel(r'$\sigma$ (mm)',fontsize = 14)  
-axS.set_ylim(0.025,0.25)  
+axS.set_ylim(0.02,0.25)  
 axS.yaxis.set_major_locator(MultipleLocator(0.05))
 axS.yaxis.set_major_formatter('{x:.2f}')
 axS.yaxis.set_minor_locator(MultipleLocator(0.01))
