@@ -1,0 +1,17 @@
+%% set physical quantities
+
+a_bohr = 0.52917721e-10;
+a11 = (50*a_bohr); 
+a22 = (50*a_bohr);
+a12 = (-50.0*a_bohr);
+
+wr = 169*2*pi/10;   % radial trap frequency
+wz = 26*2*pi;    % axial trap frequncy
+
+% define scan values for delta and Omega or n1D
+%delta_values = linspace(-3,3, 6);
+%delta_values = [-6 -5 -4 delta_values 4 5 6];
+delta_values = 2;
+Omega_values = [20*wr];
+n_values = [1e11];
+%n1D = 9e9;
