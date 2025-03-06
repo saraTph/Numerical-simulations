@@ -11,9 +11,20 @@ import os
 
 
 #%%
-#mat = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\output_data.mat')
-mat = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\outputs\output_data.mat')
 
+#scan = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\exp_data\scan')
+#data = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\exp_data\MFdata')
+#mat = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\outputs\output_data.mat')
+
+scan = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\scan') 
+data = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\MFdata') 
+mat = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\output_data.mat')
+
+# import experimental data
+scan_exp0 = scan.get('valX').squeeze()
+size_exp0 = data.get('data5').squeeze()
+
+#import stimulaiton data
 delta_values = mat.get('delta_values').squeeze()
 Omega_values = mat.get('Omega_values').squeeze()
 P_down  = mat.get('P_down')
@@ -23,19 +34,6 @@ RE = mat.get('RE')
 PE = mat.get('PE')
 e_tot = mat.get('energy_tot')
 
-# data_exp5 = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\data_5.mat') 
-# size_exp5 = data_exp5.get('valY').squeeze()
-# scan_exp5 = data_exp5.get('valX').squeeze()
-
-
-
-#scan = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\scan') 
-scan = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\exp_data\scan')
-
-scan_exp0 = scan.get('valX').squeeze()
-#data = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\MFdata') 
-data = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\exp_data\MFdata')
-size_exp0 = data.get('data5').squeeze()
 
 #%%
 Om = Omega_values
@@ -117,9 +115,9 @@ axS.grid()
 #figS.savefig(r'C:\Users\sarat\OneDrive\Documenti\InstOptique\Simulations\GPELab\outputs\size.png', dpi = 300)
 
 #%% Export
-location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export"
-location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\MF_tiemann_5n0"
+location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\MF_tiemann_5n0"
+#location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\MF_tiemann_5n0"
 
 # outarray = np.vstack((e_rel, sizeBEC, pop_avg, delta_values)).T
 # header = 'energy \t size (m) \t pop \t delta_scan'
-# np.savetxt(os.path.join(location, 'sim_1.txt'), outarray, header=header, delimiter='\t')
+# np.savetxt(os.path.join(location, 'sim_0.txt'), outarray, header=header, delimiter='\t')
