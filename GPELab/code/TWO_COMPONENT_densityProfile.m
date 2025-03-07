@@ -33,15 +33,15 @@ wz = 26*2*pi;    % axial trap frequncy
 % define scan values for delta and Omega or n1D
 %delta_values = linspace(-2,2,40);
 %delta_values = [-8 -7 -5 -4 -3 -2.5 delta_values 2.5 3 4 5 7 8];
-delta_values = 2;
+delta_values = 1;
 %Omega_values = linspace(4*wr,20*wr,10);
-Omega_values = [22300*2*pi, 11200*2*pi, 5600*2*pi, 2810*2*pi, 1410*2*pi, 706*2*pi];
+Omega_values = [1000*2*pi];
 %Omega_values = 22300*2*pi;
 %n_values = [4186709333.3333 3539989333.3333 2411669333.3333 1131989333.3333 196309333.3333];
 %n_values = [3894613333.3333, 3293013333.3333,  2243413333.3333,1053013333.3333, 182613333.3333];
 %n_values = [4478805333.3333, 3786965333.3333, 2579925333.3333, 1210965333.3333, 210005333.3333]; % n0 = 4.6
 %n_values = [4868266666.6667, 4116266666.6667,2804266666.6667,1316266666.6667,228266666.6667]; % n0 = 5
-n_values = 228266666.6667;
+n_values = 9736533333.3333;
 
 
 %% initialize output vectors
@@ -124,7 +124,7 @@ for n1D = n_values
         
         %% Setting informations and outputs
         Outputs = OutputsINI_Var2d(Method);
-        Printing = 0;
+        Printing = 1;
         Evo = 300;
         Draw = 0;
         Print = Print_Var2d(Printing,Evo,Draw);

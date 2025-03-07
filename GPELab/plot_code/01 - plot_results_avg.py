@@ -37,8 +37,8 @@ size_exp = np.ones((len(Omega_values),39))
 scan_exp = np.ones((39))
 
 
-# file = os.path.join(location, 'sim_0.txt')
-# en[0,:], size[0,:], pop[0,:], delta_values[0,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
+file = os.path.join(location, 'sim_0.txt')
+en[0,:], size[0,:], pop[0,:], delta_values[0,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
 file = os.path.join(location, 'sim_1.txt')
 en[1,:], size[1,:], pop[1,:], delta_values[1,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
@@ -86,10 +86,10 @@ size_exp[0,:] = data.get('data5').squeeze()
 # V = 1/(0.05e-6**3)
 
 #%%
-colors = plt.get_cmap('Set2').colors
-lw = 1.7
+# colors = plt.get_cmap('Set2').colors
+# lw = 1.7
 
-labels = [r'$\Omega$ = 30.4 kHz', r'$\Omega$ = 15.2 kHz', r'$\Omega$ = 7.6 kHz', r'$\Omega$ = 3.8 kHz', r'$\Omega$ = 1.9 kHz', r'$\Omega$ = 950 Hz']
+# labels = [r'$\Omega$ = 30.4 kHz', r'$\Omega$ = 15.2 kHz', r'$\Omega$ = 7.6 kHz', r'$\Omega$ = 3.8 kHz', r'$\Omega$ = 1.9 kHz', r'$\Omega$ = 950 Hz']
 
 # # Plotting the expressions
 # fig, ax = plt.subplots(1,2,constrained_layout=True, figsize=(9,4))
@@ -115,22 +115,22 @@ labels = [r'$\Omega$ = 30.4 kHz', r'$\Omega$ = 15.2 kHz', r'$\Omega$ = 7.6 kHz',
 
 
 #%% size after tof
+
+colors = plt.get_cmap('Set2').colors
+lw = 1.7
+labels = [r'$\Omega$ = 30.4 kHz', r'$\Omega$ = 15.2 kHz', r'$\Omega$ = 7.6 kHz', r'$\Omega$ = 3.8 kHz', r'$\Omega$ = 1.9 kHz', r'$\Omega$ = 950 Hz']
+
 from matplotlib.ticker import AutoMinorLocator, MultipleLocator
 
 figS, axS = plt.subplots(1,1,constrained_layout=True, figsize=(10,7))
 
 shift = [0.12, 0.122, 0.158, 0.257, 0.257, 0.376]
 #for i in range(np.size(Omega_values)):
-for i in range(1,6):
+for i in range(0,6):
     Om = Omega_values[i]*2*np.pi
     
     axS.plot(delta_values[i,:], size[i,:]*10**3, label=labels[i], lw=lw, color=colors[i],zorder =1)
     axS.scatter(scan_exp + shift[i], size_exp[i,:], lw=2, marker = '2', color=colors[i])
-
-    #print(np.min(size_exp[i,:]))
-    #print(np.min( size[i,:]*10**3))
-
-#axS.plot(scan_exp+0.25, size_exp, label='exp', lw=lw, color='black' ,zorder =1)
 
 xticks = np.linspace(-8,8,17)
 axS.set_xticks(xticks)    
@@ -148,4 +148,4 @@ axS.grid()
 #%%
 # fig.savefig(r'C:\Users\sarat\OneDrive\Documenti\InstOptique\Simulations\GPELab\outputs\results\25-02-17\Energy&Spin.png', dpi = 300)
 #figS.savefig(r'C:\Users\sarat\OneDrive\Documenti\InstOptique\Simulations\GPELab\outputs\results\25-02-17\Size_tof.png', dpi = 300)
-# figS.savefig(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Figures\MF_950Hz_select_n0.png', dpi = 300)
+#figS.savefig(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Figures\MF_trueOmega.png', dpi = 300)

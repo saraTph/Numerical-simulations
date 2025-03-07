@@ -64,7 +64,7 @@ i = 2
 
 # fig, ax = plt.subplots(1,2,constrained_layout=True, figsize=(9,4))
 
-# e_rel = (e_tot_avg - RE_avg)*Om/wr - 1
+e_rel = (e_tot_avg - RE_avg)*Om/wr - 1
 # ax[0].plot(delta_values.T, e_rel, label='avg', lw=lw, color=colors[i])
 # ax[1].plot(delta_values.T, pop_avg, lw=lw, color=colors[i])
 
@@ -111,6 +111,6 @@ axS.grid()
 location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export"
 #location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\MF_tiemann_5n0"
 
-# outarray = np.vstack((e_rel, sizeBEC, pop_avg, delta_values)).T
-# header = 'energy \t size (m) \t pop \t delta_scan'
-# np.savetxt(os.path.join(location, 'sim_1.txt'), outarray, header=header, delimiter='\t')
+outarray = np.vstack((e_rel, sizeBEC, pop_avg, delta_values)).T
+header = 'energy \t size (m) \t pop \t delta_scan'
+np.savetxt(os.path.join(location, 'sim_0.txt'), outarray, header=header, delimiter='\t')
