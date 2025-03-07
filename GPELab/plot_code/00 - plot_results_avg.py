@@ -62,21 +62,21 @@ colors = plt.get_cmap('Set3_r').colors
 lw = 2
 i = 2
 
-fig, ax = plt.subplots(1,2,constrained_layout=True, figsize=(9,4))
+# fig, ax = plt.subplots(1,2,constrained_layout=True, figsize=(9,4))
 
-e_rel = (e_tot_avg - RE_avg)*Om/wr - 1
-ax[0].plot(delta_values.T, e_rel, label='avg', lw=lw, color=colors[i])
-ax[1].plot(delta_values.T, pop_avg, lw=lw, color=colors[i])
+# e_rel = (e_tot_avg - RE_avg)*Om/wr - 1
+# ax[0].plot(delta_values.T, e_rel, label='avg', lw=lw, color=colors[i])
+# ax[1].plot(delta_values.T, pop_avg, lw=lw, color=colors[i])
 
-ax[0].set_xlabel(r'$\delta/\Omega$', fontsize=14)
-ax[0].set_ylabel(r'$E_{released}/\hbar\omega_r$',fontsize = 14)
-ax[0].legend()
-yticks = np.linspace(0,1,5)
-ytick_labels = [r'$0$', r'$0.25$', r'$0.5$', r'$0.75$' , r'$1$']
-ax[1].set_yticks(yticks)
-ax[1].set_xlabel(r'$\delta/\Omega$', fontsize=14)
-ax[1].set_ylabel(r'$P_{\uparrow\uparrow}$',fontsize = 14)
-ax[1].grid()
+# ax[0].set_xlabel(r'$\delta/\Omega$', fontsize=14)
+# ax[0].set_ylabel(r'$E_{released}/\hbar\omega_r$',fontsize = 14)
+# ax[0].legend()
+# yticks = np.linspace(0,1,5)
+# ytick_labels = [r'$0$', r'$0.25$', r'$0.5$', r'$0.75$' , r'$1$']
+# ax[1].set_yticks(yticks)
+# ax[1].set_xlabel(r'$\delta/\Omega$', fontsize=14)
+# ax[1].set_ylabel(r'$P_{\uparrow\uparrow}$',fontsize = 14)
+# ax[1].grid()
 
 
 #%% Plot size after tof
@@ -96,28 +96,21 @@ sizeBEC = v * t_tof
 axS.plot(delta_values.T, sizeBEC*10**3, label='avg', lw=lw, color=colors[i],zorder =1)
 
 #axS.scatter(scan_exp5+0.25, size_exp5, marker = '.' ,label='exp', lw=lw, color='black' ,zorder =1)
-axS.scatter(scan_exp0 +  0.09, size_exp0, marker = '.' ,label='exp', lw=lw, color='black' ,zorder =1)
+#axS.scatter(scan_exp0 +  0.09, size_exp0, marker = '.' ,label='exp', lw=lw, color='black' ,zorder =1)
     
 xticks = np.linspace(-8,8,17)
 axS.set_xticks(xticks)
 axS.set_xlabel(r'$\delta/\Omega$', fontsize=14)
 axS.set_ylabel(r'$\sigma$ (mm)',fontsize = 14)  
 axS.set_ylim(0,0.26)  
-#axS.yaxis.set_major_locator(MultipleLocator(0.05))
-#axS.yaxis.set_major_formatter('{x:.2f}')
-#axS.yaxis.set_minor_locator(MultipleLocator(0.01))
-#axS.spines['left'].set_position(('data', 0))
-#axS.spines['left'].set_zorder(10)
+
 axS.legend()
 axS.grid()
 
-#fig.savefig(r'C:\Users\sarat\OneDrive\Documenti\InstOptique\Simulations\GPELab\outputs\energy_spin.png', dpi = 300)
-#figS.savefig(r'C:\Users\sarat\OneDrive\Documenti\InstOptique\Simulations\GPELab\outputs\size.png', dpi = 300)
-
 #%% Export
-location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\MF_tiemann_5n0"
+location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export"
 #location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\MF_tiemann_5n0"
 
 # outarray = np.vstack((e_rel, sizeBEC, pop_avg, delta_values)).T
 # header = 'energy \t size (m) \t pop \t delta_scan'
-# np.savetxt(os.path.join(location, 'sim_0.txt'), outarray, header=header, delimiter='\t')
+# np.savetxt(os.path.join(location, 'sim_1.txt'), outarray, header=header, delimiter='\t')

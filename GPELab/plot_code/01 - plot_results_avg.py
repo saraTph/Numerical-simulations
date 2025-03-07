@@ -19,8 +19,10 @@ import os
 scan = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\scan') 
 data = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\MFdata') 
 location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\MF_tiemann_5n0"
+location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\MF_tiemann_4.6n0_TrueOmega"
 
-Omega_values = [22300, 11200, 5600, 2810, 1410, 706]
+#Omega_values = [22300, 11200, 5600, 2810, 1410, 706]
+Omega_values = [30400, 15200, 7600, 3800, 1900, 950]
 
 #initialize simulation results
 len_sim = 52
@@ -35,8 +37,8 @@ size_exp = np.ones((len(Omega_values),39))
 scan_exp = np.ones((39))
 
 
-file = os.path.join(location, 'sim_0.txt')
-en[0,:], size[0,:], pop[0,:], delta_values[0,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
+# file = os.path.join(location, 'sim_0.txt')
+# en[0,:], size[0,:], pop[0,:], delta_values[0,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
 file = os.path.join(location, 'sim_1.txt')
 en[1,:], size[1,:], pop[1,:], delta_values[1,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
@@ -87,7 +89,7 @@ size_exp[0,:] = data.get('data5').squeeze()
 colors = plt.get_cmap('Set2').colors
 lw = 1.7
 
-labels = [r'$\Omega$ = 22.3 kHz', r'$\Omega$ = 11.2 kHz', r'$\Omega$ = 5.6 kHz', r'$\Omega$ = 2.81 kHz', r'$\Omega$ = 1.41 kHz', r'$\Omega$ = 706 Hz']
+labels = [r'$\Omega$ = 30.4 kHz', r'$\Omega$ = 15.2 kHz', r'$\Omega$ = 7.6 kHz', r'$\Omega$ = 3.8 kHz', r'$\Omega$ = 1.9 kHz', r'$\Omega$ = 950 Hz']
 
 # # Plotting the expressions
 # fig, ax = plt.subplots(1,2,constrained_layout=True, figsize=(9,4))
@@ -119,7 +121,7 @@ figS, axS = plt.subplots(1,1,constrained_layout=True, figsize=(10,7))
 
 shift = [0.12, 0.122, 0.158, 0.257, 0.257, 0.376]
 #for i in range(np.size(Omega_values)):
-for i in range(0,6):
+for i in range(1,6):
     Om = Omega_values[i]*2*np.pi
     
     axS.plot(delta_values[i,:], size[i,:]*10**3, label=labels[i], lw=lw, color=colors[i],zorder =1)
@@ -146,4 +148,4 @@ axS.grid()
 #%%
 # fig.savefig(r'C:\Users\sarat\OneDrive\Documenti\InstOptique\Simulations\GPELab\outputs\results\25-02-17\Energy&Spin.png', dpi = 300)
 #figS.savefig(r'C:\Users\sarat\OneDrive\Documenti\InstOptique\Simulations\GPELab\outputs\results\25-02-17\Size_tof.png', dpi = 300)
-figS.savefig(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Figures\MF_5n0.png', dpi = 300)
+# figS.savefig(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Figures\MF_950Hz_select_n0.png', dpi = 300)
