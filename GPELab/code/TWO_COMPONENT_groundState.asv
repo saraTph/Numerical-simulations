@@ -31,8 +31,8 @@ wr = 169*2*pi;   % radial trap frequency
 wz = 26*2*pi;    % axial trap frequncy
 
 % define scan values for delta and Omega or n1D
-delta_values = linspace(-2,2,40);
-delta_values = [-8 -7 -6 -5 -4 -3 -2.5 delta_values 2.5 3 4 5 6 7 8];
+delta_values = linspace(-2,2,10);
+delta_values = [-8 -7 -5 -4 -3 -2.5 delta_values 2.5 3 4 5 7 8];
 %Omega_values = linspace(4*wr,20*wr,10);
 Omega_values = 1900*2*pi;
 %n_values = [3894613333.3333, 3293013333.3333,  2243413333.3333,1053013333.3333, 182613333.3333];
@@ -140,6 +140,9 @@ for n1D = n_values
         energy_1(j,i) = Outputs.Energy{1}(end);
         energy_2(j,i) = Outputs.Energy{2}(end);
         energy_tot(j,i) = energy_1(j,i) + energy_2(j,i);
+        
+        x_size_1(j,i) = Outputs.x_rms{1}(end);
+        x_size_2(j,i) = Outputs.x_rms{2}(end);
 
         % Calculate Energies
         IE(j,i) = InteractionEnergy(Phi_1,g11,g22,g12,Geometry2D);
@@ -183,5 +186,5 @@ end
 save(fullfile(outputFolder, fileName), 'Omega_values','delta_values', ...
     'energy_tot','PE','KE',"IE",'RE', ...
     'P','P_down','P_up', ...
-    'sigma');
+    'size');
 beep;
