@@ -31,10 +31,11 @@ wr = 169*2*pi;   % radial trap frequency
 wz = 26*2*pi;    % axial trap frequncy
 
 % define scan values for delta and Omega or n1D
-delta_values = linspace(-2,2,40);
-delta_values = [-8 -7 -6 -5 -4 -3 -2.5 delta_values 2.5 3 4 5 6 7 8];
+%delta_values = linspace(-2,2,40);
+%delta_values = [-8 -7 -6 -5 -4 -3 -2.5 delta_values 2.5 3 4 5 6 7 8];
+delta_values = linspace(-8,8,65);
 %Omega_values = linspace(4*wr,20*wr,10);
-Omega_values = 1900*2*pi;
+Omega_values = 950*2*pi;
 %n_values = [3894613333.3333, 3293013333.3333,  2243413333.3333,1053013333.3333, 182613333.3333];
 %n_values = [4186709333.3333 3539989333.3333 2411669333.3333 1131989333.3333 196309333.3333]; % n0 =4.3
 %n_values = [4478805333.3333, 3786965333.3333, 2579925333.3333, 1210965333.3333, 210005333.3333]; %n0=4.6
