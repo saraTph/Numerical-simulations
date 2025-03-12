@@ -13,7 +13,7 @@ import os
 #%% Import
 
 n_values = [4.6e9, 4.554e9]
-len_sim = 54
+len_sim = 65
 
 en = np.ones((len(n_values),len_sim))
 size = np.ones((len(n_values),len_sim))
@@ -58,15 +58,20 @@ d = delta_values[0,:]
 d = d[::-1]  # invert delta vector [+8 to -8]
 F = F[::-1]  # invert Force vector [+8 to -8]
 
-i = 50
-d_scan = d[0:i]
-F_scan = F[0:i]
+i = 10
+d_scan = d[0:i]  # cut the scan of delta 
+F_scan = F[0:i]  # cut the scan of the force
 
-# difine dt to perforn integation 
+#difine dt to perforn integation 
 delta_diff = np.abs(np.diff(d_scan))
-T = 9e-3  
+T = 9e-3 
 dt = (delta_diff / np.sum(delta_diff)) * T
 time_vector = np.concatenate([[0], np.cumsum(dt)])
+
+# T = 9e-3 
+# dt = T/i
+# dt = np.ones(i)*dt
+# time_vector = np.concatenate([[0], np.cumsum(dt)])
 
 # integrate and evaluate kin energy
 delta_v = np.cumsum(F_scan[:-1] / m * dt)
