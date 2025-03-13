@@ -12,20 +12,17 @@ import os
 
 #%% Import
 
-#scan = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\exp_data\scan')
-#data = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\exp_data\MFdata')
-#mat = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\MF_tiemann_5n0')
+#load experimntal data and simulation results
+data_energy = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\exp_data_energy') 
+data_spin = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\exp_data_spin') 
+loc_sim = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\MF_tiemann_4.6n0_TrueOmega"
 
-scan = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\scan') 
-data = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\MFdata') 
-location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\MF_tiemann_5n0"
-location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\MF_tiemann_4.6n0_TrueOmega"
-
-#Omega_values = [22300, 11200, 5600, 2810, 1410, 706]
 Omega_values = [30400, 15200, 7600, 3800, 1900, 950]
 
 #initialize simulation results
 len_sim = 52
+len_energyData = 39
+len_spinData = 25
 
 en = np.ones((len(Omega_values),len_sim))
 size = np.ones((len(Omega_values),len_sim))
@@ -33,85 +30,72 @@ pop = np.ones((len(Omega_values),len_sim))
 delta_values = np.ones((len(Omega_values),len_sim))
 
 #initialize data exp
-size_exp = np.ones((len(Omega_values),39))
-scan_exp = np.ones((39))
+size_exp = np.ones((len(Omega_values),len_energyData))
+scan_energy = np.ones((len_energyData))
+spin_exp = np.ones((len(Omega_values),len_spinData))
+scan_spin = np.ones((len_spinData))
 
 
-file = os.path.join(location, 'sim_0.txt')
+file = os.path.join(loc_sim, 'sim_0.txt')
 en[0,:], size[0,:], pop[0,:], delta_values[0,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
-file = os.path.join(location, 'sim_1.txt')
+file = os.path.join(loc_sim, 'sim_1.txt')
 en[1,:], size[1,:], pop[1,:], delta_values[1,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
-file = os.path.join(location, 'sim_2.txt')
+file = os.path.join(loc_sim, 'sim_2.txt')
 en[2,:], size[2,:], pop[2,:], delta_values[2,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
-file = os.path.join(location, 'sim_3.txt')
+file = os.path.join(loc_sim, 'sim_3.txt')
 en[3,:], size[3,:], pop[3,:], delta_values[3,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
-file = os.path.join(location, 'sim_4.txt')
+file = os.path.join(loc_sim, 'sim_4.txt')
 en[4,:], size[4,:], pop[4,:], delta_values[4,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
-file = os.path.join(location, 'sim_5.txt')
+file = os.path.join(loc_sim, 'sim_5.txt')
 en[5,:], size[5,:], pop[5,:], delta_values[5,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
 # import experimental data
+scan_energy = data_energy.get('valX').squeeze()
+size_exp[5,:] = data_energy.get('data0') 
+size_exp[4,:] = data_energy.get('data1')
+size_exp[3,:] = data_energy.get('data2')
+size_exp[2,:] = data_energy.get('data3') 
+size_exp[1,:] = data_energy.get('data4') 
+size_exp[0,:] = data_energy.get('data5') 
 
+scan_spin = data_spin.get('scan')
+spin_exp[5,:] = data_spin.get('pop5').squeeze()
+spin_exp[4,:] = data_spin.get('pop4').squeeze()
+spin_exp[3,:] = data_spin.get('pop3').squeeze()
+spin_exp[2,:] = data_spin.get('pop2').squeeze()
+spin_exp[1,:] = data_spin.get('pop1').squeeze()
+spin_exp[0,:] = data_spin.get('pop0').squeeze()
 
-scan_exp = scan.get('valX').squeeze()
-size_exp[5,:] = data.get('data0').squeeze()
-size_exp[4,:] = data.get('data1').squeeze() 
-size_exp[3,:] = data.get('data2').squeeze()
-size_exp[2,:] = data.get('data3').squeeze()
-size_exp[1,:] = data.get('data4').squeeze()
-size_exp[0,:] = data.get('data5').squeeze()
 
 #%%
+colors = plt.get_cmap('Set2').colors
+lw = 1.7
+labels = [r'$\Omega$ = 30.4 kHz', r'$\Omega$ = 15.2 kHz', r'$\Omega$ = 7.6 kHz', r'$\Omega$ = 3.8 kHz', r'$\Omega$ = 1.9 kHz', r'$\Omega$ = 950 Hz']
 
-# wr = 169*2*np.pi #Hz
-# wz = 26*2*np.pi  #Hz
-
-# u = 1.66053906660e-27
-# m = 39*u
-# hbar = 1.054571818e-34 #J s
-
-# a_bohr = 0.52917721e-10
-# a11 = (85*a_bohr)
-# a22 = (33.4*a_bohr)
-# a12 = (-53.0*a_bohr)
-# g11 = (4*np.pi*hbar**2*a11*a_bohr)/m
-# g12 = (4*np.pi*hbar**2*a12*a_bohr)/m 
-# g22 = (4*np.pi*hbar**2*a22*a_bohr)/m
-  
-# V = 1/(0.05e-6**3)
-
-#%%
-# colors = plt.get_cmap('Set2').colors
-# lw = 1.7
-
-# labels = [r'$\Omega$ = 30.4 kHz', r'$\Omega$ = 15.2 kHz', r'$\Omega$ = 7.6 kHz', r'$\Omega$ = 3.8 kHz', r'$\Omega$ = 1.9 kHz', r'$\Omega$ = 950 Hz']
-
-# # Plotting the expressions
-# fig, ax = plt.subplots(1,2,constrained_layout=True, figsize=(9,4))
+# Plotting the expressions
+fig, ax = plt.subplots(1,1,constrained_layout=True, figsize=(9,4))
 
 
-# #for i in range(np.size(Omega_values)):
-# for i in range(4):
-#     Om = Omega_values[i] *2*np.pi
+#for i in range(np.size(Omega_values)):
+for i in range(6):
+    Om = Omega_values[i] *2*np.pi
     
-#     ax[0].plot(delta_values[i,:], en[i,:], label=labels[i], lw=lw, color=colors[i])
-#     ax[1].plot(delta_values[i,:], pop[i,:], lw=lw, color=colors[i])
+    ax.plot(delta_values[i,:], pop[i,:], lw=lw, color=colors[i], label=labels[i])
+    ax.scatter(scan_spin, spin_exp[i,:], lw=2, marker = '2', color=colors[i])
 
-# ax[0].set_xlabel(r'$\delta/\Omega$', fontsize=14)
-# ax[0].set_ylabel(r'$E_{released}/\omega_r$',fontsize = 14)
-# ax[0].legend()
 
-# yticks = np.linspace(0,1,5)
-# ytick_labels = [r'$0$', r'$0.25$', r'$0.5$', r'$0.75$' , r'$1$']
-# ax[1].set_yticks(yticks)
-# ax[1].set_xlabel(r'$\delta/\Omega$', fontsize=14)
-# ax[1].set_ylabel(r'$P_{\uparrow\uparrow}$',fontsize = 14)
-# ax[1].grid()
+yticks = np.linspace(0,1,5)
+ytick_labels = [r'$0$', r'$0.25$', r'$0.5$', r'$0.75$' , r'$1$']
+ax.set_yticks(yticks)
+ax.set_xlabel(r'$\delta/\Omega$', fontsize=14)
+ax.set_ylabel(r'$P_{\uparrow\uparrow}$',fontsize = 14)
+ax.legend()
+ax.grid()
 
 
 #%% size after tof
@@ -130,7 +114,7 @@ for i in range(0,6):
     Om = Omega_values[i]*2*np.pi
     
     axS.plot(delta_values[i,:], size[i,:]*10**3, label=labels[i], lw=lw, color=colors[i],zorder =1)
-    axS.scatter(scan_exp + shift[i], size_exp[i,:], lw=2, marker = '2', color=colors[i])
+    axS.scatter(scan_energy + shift[i], size_exp[i,:], lw=2, marker = '2', color=colors[i])
 
 xticks = np.linspace(-8,8,17)
 axS.set_xticks(xticks)    
@@ -146,6 +130,6 @@ axS.legend()
 axS.grid()
 
 #%%
-# fig.savefig(r'C:\Users\sarat\OneDrive\Documenti\InstOptique\Simulations\GPELab\outputs\results\25-02-17\Energy&Spin.png', dpi = 300)
-#figS.savefig(r'C:\Users\sarat\OneDrive\Documenti\InstOptique\Simulations\GPELab\outputs\results\25-02-17\Size_tof.png', dpi = 300)
-#figS.savefig(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Figures\MF_trueOmega.png', dpi = 300)
+
+#fig.savefig(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Figures\Spin_DV.png', dpi = 300)
+#figS.savefig(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Figures\Energy_DV.png', dpi = 300)
