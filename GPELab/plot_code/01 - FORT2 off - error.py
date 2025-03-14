@@ -30,13 +30,13 @@ size = np.ones((len(n_values),len_sim))
 pop = np.ones((len(n_values),len_sim))
 delta_values = np.ones((len(n_values),len_sim))
 
-#location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error"
-location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\DeltaE_sim"
+location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\DeltaE_sim"
+#location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\DeltaE_sim"
 
-file = os.path.join(location, 'sim_0_4.6n0.txt')
+file = os.path.join(location, 'sim_2_4.6n0.txt')
 en[0,:], size[0,:], pop[0,:], delta_values[0,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
-file = os.path.join(location, 'sim_0_4.554n0.txt')
+file = os.path.join(location, 'sim_2_4.554n0.txt')
 en[1,:], size[1,:], pop[1,:], delta_values[1,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
 
@@ -119,7 +119,9 @@ ax.grid(True)
 
 #%%
 
-# location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\kinEnergy_sweep"
+#location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\kinEnergy_sweep"
+location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\kinEnergy_sweep"
+
 # outarray = np.vstack((delta_sweep, energy_sweep)).T
 # header = 'delta_sweep \t kin_en_sweep'
-# np.savetxt(os.path.join(location, 'kinEn_sweep_0.txt'), outarray, header=header, delimiter='\t')
+# np.savetxt(os.path.join(location, 'kinEn_sweep_1.txt'), outarray, header=header, delimiter='\t')

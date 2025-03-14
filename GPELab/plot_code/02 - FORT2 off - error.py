@@ -24,14 +24,14 @@ len_sim = 64
 delta_sweep = np.ones((len(Omega_values),len_sim))
 kinEn_sweep = np.ones((len(Omega_values),len_sim))
 
-#location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\kinEnergy_sweep"
-location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\kinEnergy_sweep"
+location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\kinEnergy_sweep"
+#location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\kinEnergy_sweep"
 
 file = os.path.join(location, 'kinEn_sweep_0.txt')
 delta_sweep[0,:], kinEn_sweep[0,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
-# file = os.path.join(location, 'kinEn_sweep_1.txt')
-# delta_sweep[1,:], kinEn_sweep[1,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
+file = os.path.join(location, 'kinEn_sweep_1.txt')
+delta_sweep[1,:], kinEn_sweep[1,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
 # file = os.path.join(location, 'kinEn_sweep_2.txt')
 # delta_sweep[2,:], kinEn_sweep[5,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
@@ -68,6 +68,8 @@ for i, Om in enumerate(Omega_values):
     
     Om = Om *2*np.pi
     time_FORT2off[i] = np.sqrt( kinEn_sweep[i,idx] * (2/m) * (wz**2*sigma_z)**(-2))
+    print(kinEn_sweep[i,idx]/(hbar*2*np.pi))
+    #print()
 
 #%%
 colors = plt.get_cmap('Set2').colors
@@ -82,13 +84,13 @@ ax.set_ylabel(r'$t (s)$', fontsize=14)
 
 #%%
 
-# fig1, ax1 = plt.subplots(1, 1, constrained_layout=True, figsize=(8, 5))
+fig1, ax1 = plt.subplots(1, 1, constrained_layout=True, figsize=(8, 5))
 
-# for i, Om in enumerate(Omega_values):
-#     ax1.scatter(delta_sweep[0,:], kinEn_sweep[i,:] /(hbar*2*np.pi), lw=lw, color=colors[i], zorder=1)
+for i, Om in enumerate(Omega_values):
+    ax1.scatter(delta_sweep[0,:], kinEn_sweep[i,:] /(hbar*2*np.pi), lw=lw, color=colors[i], zorder=1)
     
-# ax1.set_xlabel(r'$\delta/\Omega$', fontsize=14)
-# ax1.set_ylabel(r'$E_{kin} (Hz)$', fontsize=14)
+ax1.set_xlabel(r'$\delta/\Omega$', fontsize=14)
+ax1.set_ylabel(r'$E_{kin} (Hz)$', fontsize=14)
 
 
 #%%

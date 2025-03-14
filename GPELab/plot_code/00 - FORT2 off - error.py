@@ -12,7 +12,8 @@ import os
 
 
 #%%
-mat = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\output_data.mat')
+#mat = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\output_data.mat')
+mat = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\outputs\output_data.mat')
 
 #import stimulaiton data
 delta_values = mat.get('delta_values').squeeze()
@@ -51,6 +52,7 @@ PE_avg = np.dot(weights, PE)
 KE_avg = np.dot(weights, KE)
 
 
+e_rel = (e_tot_avg - RE_avg)*Om/wr - 1
 
 #%% Extract energy and size 
 colors = plt.get_cmap('Set3_r').colors
@@ -76,7 +78,8 @@ axS.grid()
 
 #%% Export
 location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\DeltaE_sim"
+location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\DeltaE_sim"
 
-# outarray = np.vstack((e_rel, sizeBEC, pop_avg, delta_values)).T
+# outarray = np.vstack((e_rel_avg, sizeBEC, pop_avg, delta_values)).T
 # header = 'energy \t size (m) \t pop \t delta_scan'
-# np.savetxt(os.path.join(location, 'sim_1_4.554n0.txt'), outarray, header=header, delimiter='\t')
+# np.savetxt(os.path.join(location, 'sim_2_4.6n0.txt'), outarray, header=header, delimiter='\t')
