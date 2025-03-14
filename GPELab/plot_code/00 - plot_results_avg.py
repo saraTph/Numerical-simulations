@@ -62,9 +62,9 @@ colors = plt.get_cmap('Set3_r').colors
 lw = 2
 i = 2
 
-# fig, ax = plt.subplots(1,2,constrained_layout=True, figsize=(9,4))
-
 e_rel = (e_tot_avg - RE_avg)*Om/wr - 1
+
+# fig, ax = plt.subplots(1,2,constrained_layout=True, figsize=(9,4))
 # ax[0].plot(delta_values.T, e_rel, label='avg', lw=lw, color=colors[i])
 # ax[1].plot(delta_values.T, pop_avg, lw=lw, color=colors[i])
 

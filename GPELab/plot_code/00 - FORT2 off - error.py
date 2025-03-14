@@ -49,35 +49,34 @@ RE_avg = np.dot(weights, RE)
 IE_avg = np.dot(weights, IE)
 PE_avg = np.dot(weights, PE)
 KE_avg = np.dot(weights, KE)
-size_avg = np.dot(weights, size)
+
 
 
 #%% Extract energy and size 
-
 colors = plt.get_cmap('Set3_r').colors
 lw = 2
 i = 2
 
-e_rel = (e_tot_avg - RE_avg)*Om/wr - 1
-e_rel = e_rel* E
-sizeBEC = size_avg *L
+t_tof = 62.6e-3  #s
+e_rel_avg = (e_tot_avg-RE_avg)*(hbar*Om) - hbar*wr # energy tot - Rabi energy - hbar * wr
 
+v = np.sqrt(2*e_rel_avg/m)   
+sizeBEC = v * t_tof
 
 figS, axS = plt.subplots(1,1,constrained_layout=True, figsize=(5,4))
-axS.plot(delta_values.T, sizeBEC*10**6, label='avg', lw=lw, color=colors[i],zorder =1)
-
-    
+axS.plot(delta_values.T, sizeBEC*10**3, label='avg', lw=lw, color=colors[i],zorder =1)
+ 
 xticks = np.linspace(-8,8,17)
 axS.set_xticks(xticks)
 axS.set_xlabel(r'$\delta/\Omega$', fontsize=14)
-axS.set_ylabel(r'$\sigma$ ($\mu$m)',fontsize = 14)  
-
+axS.set_ylabel(r'$\sigma$ (mm)',fontsize = 14)  
 axS.legend()
 axS.grid()
 
+
 #%% Export
-location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error"
+location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\DeltaE_sim"
 
 # outarray = np.vstack((e_rel, sizeBEC, pop_avg, delta_values)).T
 # header = 'energy \t size (m) \t pop \t delta_scan'
-# np.savetxt(os.path.join(location, 'sim_0_4.554n0.txt'), outarray, header=header, delimiter='\t')
+# np.savetxt(os.path.join(location, 'sim_1_4.554n0.txt'), outarray, header=header, delimiter='\t')

@@ -3,6 +3,16 @@
 Created on Sun Mar  9 12:02:25 2025
 
 @author: sarat
+
+this program uploqds the results from the simulations GPELab runned for two different walues of densities
+and calculates the Force generated during the adiabatic sweep fron delta/Omega = 8 to -8 
+
+This force is calculated for each detuning value and considering a sweep duration of 9 ms (equal for each point)
+
+From the force is calculated the Kinetic energy eccumulated during the sweep due to ONLY interaction term
+
+Results are saved in txt files
+ 
 """
 
 import numpy as np
@@ -20,8 +30,8 @@ size = np.ones((len(n_values),len_sim))
 pop = np.ones((len(n_values),len_sim))
 delta_values = np.ones((len(n_values),len_sim))
 
-location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error"
-location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error"
+#location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error"
+location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\DeltaE_sim"
 
 file = os.path.join(location, 'sim_0_4.6n0.txt')
 en[0,:], size[0,:], pop[0,:], delta_values[0,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
@@ -43,7 +53,7 @@ L = np.sqrt(hbar/(m*wr))
 E = hbar*wr
 sigma_z = 10e-6
 
-#%% size after tof
+#%%
 
 
 Den = (en[0,:]-en[1,:])  # J
@@ -58,7 +68,7 @@ d = delta_values[0,:]
 d = d[::-1]  # invert delta vector [+8 to -8]
 F = F[::-1]  # invert Force vector [+8 to -8]
 
-sweep = list(range(5, 66, 2))
+sweep = list(range(2, 66, 1))
 delta_sweep = np.ones((len(sweep)))
 energy_sweep = np.ones((len(sweep)))
 
@@ -78,11 +88,11 @@ for idx, i in enumerate(sweep):
     Ekin = 0.5*m*delta_v**2
     
     delta_sweep[idx] = d_scan[-1]
-    energy_sweep[idx] = Ekin[-1]/ (hbar * 2 * np.pi)
+    energy_sweep[idx] = Ekin[-1]
 
 #%%
-colors = plt.get_cmap('Set2').colors
-lw = 1.7
+# colors = plt.get_cmap('Set2').colors
+# lw = 1.7
 
 # figS, axT = plt.subplots(1, 1, constrained_layout=True, figsize=(8, 5))
 
@@ -98,13 +108,18 @@ lw = 1.7
 # axS.set_xticks(time_ticks)  # Use interpolated time positions
 # axS.set_xticklabels([f"{tick:.1f}" for tick in delta_ticks])  # Show delta values
 
-#axT.grid(True)
+# axT.grid(True)
 
 #%%
 fig, ax = plt.subplots(1, 1, constrained_layout=True, figsize=(8, 5))
-ax.scatter(delta_sweep,energy_sweep)
+ax.scatter(delta_sweep,energy_sweep/(hbar * 2 * np.pi))
 ax.set_xlabel(r'$\delta/\Omega$', fontsize=14)
 ax.set_ylabel(r'$E_{kin} (Hz)$', fontsize=14)
 ax.grid(True)
+
 #%%
-#figS.savefig(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Figures\FORT2 off\Ekin_t.png', dpi = 300)
+
+# location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\kinEnergy_sweep"
+# outarray = np.vstack((delta_sweep, energy_sweep)).T
+# header = 'delta_sweep \t kin_en_sweep'
+# np.savetxt(os.path.join(location, 'kinEn_sweep_0.txt'), outarray, header=header, delimiter='\t')
