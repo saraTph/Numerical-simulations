@@ -103,5 +103,8 @@ lw = 1.7
 #%%
 fig, ax = plt.subplots(1, 1, constrained_layout=True, figsize=(8, 5))
 ax.scatter(delta_sweep,energy_sweep)
+ax.set_xlabel(r'$\delta/\Omega$', fontsize=14)
+ax.set_ylabel(r'$E_{kin} (Hz)$', fontsize=14)
+ax.grid(True)
 #%%
 #figS.savefig(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Figures\FORT2 off\Ekin_t.png', dpi = 300)
