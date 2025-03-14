@@ -59,7 +59,7 @@ h = (tf-ti)/N
 tpoints = np.arange(ti,tf,h)             # adimensional time vector
 
 di = 8                                   # initial delta/Omega
-df = -8                                  # final delta/Omega
+df = -0                                  # final delta/Omega
 delta = sweepLin(tpoints, N, di, df)
 a_dressed = scatteringLengthDressed(N,delta,a11,a22,a12)
     
@@ -143,4 +143,4 @@ axDyn[1].set_ylabel('$\sigma (\mu m)$',size=15)
 axDyn[2].plot(delta, en/(hbar*wr), label='$\sigma_{in}=\sigma_{eq}$: $f_{HO} = 200 Hz$, Linear sweep')
 #axDyn[2].set_xlabel('$t (ms)$',size=15)
 axDyn[2].set_xlabel('$\delta/\Omega$',size=15)
-axDyn[2].set_ylabel('$E/(\hbar\Omega_{r})$',size=15)
+axDyn[2].set_ylabel('$E/(\hbar\omega_{r})$',size=15)

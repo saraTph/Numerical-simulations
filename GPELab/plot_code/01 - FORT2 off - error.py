@@ -23,10 +23,10 @@ delta_values = np.ones((len(n_values),len_sim))
 location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error"
 location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error"
 
-file = os.path.join(location, 'sim_4_4.6n0.txt')
+file = os.path.join(location, 'sim_0_4.6n0.txt')
 en[0,:], size[0,:], pop[0,:], delta_values[0,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
-file = os.path.join(location, 'sim_4_4.554n0.txt')
+file = os.path.join(location, 'sim_0_4.554n0.txt')
 en[1,:], size[1,:], pop[1,:], delta_values[1,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
 
