@@ -82,4 +82,4 @@ location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPEL
 
 # outarray = np.vstack((e_rel_avg, sizeBEC, pop_avg, delta_values)).T
 # header = 'energy \t size (m) \t pop \t delta_scan'
-# np.savetxt(os.path.join(location, 'sim_2_4.6n0.txt'), outarray, header=header, delimiter='\t')
+# np.savetxt(os.path.join(location, 'sim_4_4.6n0.txt'), outarray, header=header, delimiter='\t')
