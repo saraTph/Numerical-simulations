@@ -25,8 +25,8 @@ delta_sweep = np.ones((len(Omega_values),len_sim))
 F_sweep = np.ones((len(Omega_values),len_sim))
 kinEn_sweep = np.ones((len(Omega_values),len_sim))
 
-location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\kinEnergy_sweep"
-#location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\kinEnergy_sweep"
+#location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\kinEnergy_sweep"
+location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\kinEnergy_sweep"
 
 file = os.path.join(location, 'kinEn_sweep_0.txt')
 delta_sweep[0,:], F_sweep[0,:], kinEn_sweep[0,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
@@ -68,7 +68,7 @@ for i, Om in enumerate(Omega_values):
     Om = Om *2*np.pi
     time_FORT2off[i] = np.sqrt( kinEn_sweep[i,idx] * (2/m) * (wz**2*sigma_z)**(-2))
     #print(kinEn_sweep[i,idx]/(hbar*2*np.pi))
-    #print(time_FORT2off[i])
+    print(time_FORT2off[i])
 
 #%%
 colors = plt.get_cmap('Set2').colors
@@ -100,7 +100,8 @@ ax1.set_title(r'energy given by $\frac{\partial E}{\partial \sigma_z}$ in the ad
 #%%
 #figS.savefig(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Figures\FORT2 off\Ekin_t.png', dpi = 300)
 
-location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\FORT2 off - error"
+#location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\FORT2 off - error"
+location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\FORT2 off - error"
 
 # outarray = np.vstack((Omega_values, time_FORT2off)).T
 # header = 'Rabi freq \t optimal time FORT2 off'

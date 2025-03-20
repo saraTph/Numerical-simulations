@@ -12,8 +12,8 @@ import os
 
 
 #%%
-#mat = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\output_data.mat')
-mat = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\outputs\output_data.mat')
+mat = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\output_data.mat')
+#mat = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\outputs\output_data.mat')
 
 #import stimulaiton data
 delta_values = mat.get('delta_values').squeeze()
@@ -77,9 +77,10 @@ axS.grid()
 
 
 #%% Export
-location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\DeltaE_sim"
-location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\DeltaE_sim"
+#location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\DeltaE_sim"
+#location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\DeltaE_sim"
+location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\FORT2 off - error\DeltaE_sim"
 
 # outarray = np.vstack((e_rel_avg, sizeBEC, pop_avg, delta_values)).T
 # header = 'energy \t size (m) \t pop \t delta_scan'
-# np.savetxt(os.path.join(location, 'sim_4_4.6n0.txt'), outarray, header=header, delimiter='\t')
+# np.savetxt(os.path.join(location, 'sim_5_df7_4.554n0.txt'), outarray, header=header, delimiter='\t')

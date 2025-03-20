@@ -30,8 +30,8 @@ size = np.ones((len(n_values),len_sim))
 pop = np.ones((len(n_values),len_sim))
 delta_values = np.ones((len(n_values),len_sim))
 
-location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\DeltaE_sim"
-#location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\DeltaE_sim"
+#location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\DeltaE_sim"
+location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\DeltaE_sim"
 
 file = os.path.join(location, 'sim_5_4.6n0.txt')
 en[0,:], size[0,:], pop[0,:], delta_values[0,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
@@ -59,7 +59,7 @@ n_avg = (n_values[0]+n_values[1])/2
 DnDs = -(n_avg/sigma_z)
 
 
-F = -m*wz**2*sigma_z - 0*DenDn*DnDs
+F = -0*m*wz**2*sigma_z - DenDn*DnDs
 #F = np.ones((len_sim))*F
 # invert scans (from delta = 8 to delta = -8)
 d = delta_values[0,:]
@@ -92,21 +92,22 @@ for idx, i in enumerate(sweep):
 colors = plt.get_cmap('Set2').colors
 lw = 1.7
 
-figS, axT = plt.subplots(1, 1, constrained_layout=True, figsize=(8, 5))
+# figS, axT = plt.subplots(1, 1, constrained_layout=True, figsize=(8, 5))
 
-axT.plot(time_integration[:-1] * 1e3, Ekin / (hbar * 2 * np.pi), lw=lw, color=colors[0], zorder=1)
-axT.set_xlabel(r'$t$ (ms)', fontsize=14)  # Time on bottom
-axT.set_ylabel(r'$E_{kin} (Hz)$', fontsize=14)
+# axT.plot(time_integration[:-1] * 1e3, Ekin / (hbar * 2 * np.pi), lw=lw, color=colors[0], zorder=1)
+
+# axT.set_xlabel(r'$t$ (ms)', fontsize=14)  # Time on bottom
+# axT.set_ylabel(r'$E_{kin} (Hz)$', fontsize=14)
 
 
-delta_ticks = np.linspace(8, -8, num=17)  # Adjust `num` for more/less ticks
-time_ticks = np.interp(delta_ticks, d_scan[::-1], time_integration[::-1]) * 1e3  # Convert to ms
-axS = axT.secondary_xaxis('top')
-axS.set_xlabel(r'$\delta/\Omega$', fontsize=14)
-axS.set_xticks(time_ticks)  # Use interpolated time positions
-axS.set_xticklabels([f"{tick:.1f}" for tick in delta_ticks])  # Show delta values
+# delta_ticks = np.linspace(8, -8, num=17)  # Adjust `num` for more/less ticks
+# time_ticks = np.interp(delta_ticks, d_scan[::-1], time_integration[::-1]) * 1e3  # Convert to ms
+# axS = axT.secondary_xaxis('top')
+# axS.set_xlabel(r'$\delta/\Omega$', fontsize=14)
+# axS.set_xticks(time_ticks)  # Use interpolated time positions
+# axS.set_xticklabels([f"{tick:.1f}" for tick in delta_ticks])  # Show delta values
 
-axT.grid(True)
+# axT.grid(True)
 
 #%%
 fig, ax = plt.subplots(1, 1, constrained_layout=True, figsize=(8, 5))
@@ -121,6 +122,6 @@ ax.grid(True)
 #location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\kinEnergy_sweep"
 location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\kinEnergy_sweep"
 
-# outarray = np.vstack((delta_sweep, F[:-1], energy_sweep)).T
+#outarray = np.vstack((delta_sweep, F[:-1], energy_sweep)).T
 # header = 'delta_sweep \t F \t kin_en_sweep'
 # np.savetxt(os.path.join(location, 'kinEn_sweep_4.txt'), outarray, header=header, delimiter='\t')
