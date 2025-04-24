@@ -31,12 +31,10 @@ wr = 169*2*pi;   % radial trap frequency
 wz = 26*2*pi;    % axial trap frequncy
 
 % define scan values for delta and Omega or n1D
-%delta_values = linspace(-2,2,40);
-%delta_values = [-8 -7 -6 -5 -4 -3 -2.5 delta_values 2.5 3 4 5 6 7 8];
+
 %delta_values = linspace(8,7,40);
 delta_values = 1;
-%Omega_values = linspace(4*wr,20*wr,10);
-Omega_values = linspace(1000*2*pi,30000*2*pi,20);
+Omega_values = linspace(2000*2*pi,60000*2*pi,10);
 %n_values = [1947306666.6667, 1646506666.6667,1121706666.6667,526506666.6667,91306666.6667];
 %n_values = [3894613333.3333, 3293013333.3333,  2243413333.3333,1053013333.3333, 182613333.3333];
 %n_values = [4186709333.3333 3539989333.3333 2411669333.3333 1131989333.3333 196309333.3333]; % n0 =4.3
@@ -46,18 +44,20 @@ n_values = [4434017280.0000, 3749095680.0000, 2554126080.0000, 1198855680.0000, 
 
 
 %% initialize output vectors
-P = zeros(length(Omega_values),length(delta_values));
-P_up = zeros(length(Omega_values),length(delta_values));
-P_down = zeros(length(Omega_values),length(delta_values));
+n_col = length(Omega_values);
+n_line = length(n_values);
 
-energy_1 = zeros(length(Omega_values),length(delta_values));
-energy_2 = zeros(length(Omega_values),length(delta_values));
-energy_tot = zeros(length(Omega_values),length(delta_values));
-
-IE = zeros(length(Omega_values),length(delta_values));
-RE = zeros(length(Omega_values),length(delta_values));
+P = zeros(n_line,n_col);
+P_up = zeros(n_line,n_col);
+P_down = zeros(n_line,n_col);
+energy_1 = zeros(n_line,n_col);
+energy_2 = zeros(n_line,n_col);
+energy_tot = zeros(n_line,n_col);
+IE = zeros(n_line,n_col);
+RE = zeros(n_line,n_col);
 PE = zeros(length(Omega_values),length(delta_values));
-KE = zeros(length(Omega_values),length(delta_values));
+KE = zeros(n_line,n_col);
+
 
 
 %% evaluate groung state
@@ -151,19 +151,6 @@ for n1D = n_values
         PE(j,i) = PotentialEnergy(Phi_1,gamma_x,gamma_y,Geometry2D);
 
 
-%         if delta == 2
-% 
-%             %     1D density profiles
-%             %     Compute probability densities in 2D ground state solution
-%             Psi1_1_density = abs(Phi_1{1}).^2;  %component 1
-%             Psi1_2_density = abs(Phi_1{2}).^2;  %component 2
-%             
-%             %     Integrate along the Y-direction to get 1D profile along X
-%             Y_vals = Geometry2D.Y(:,1);
-%             Density1_1D_1 = trapz(Y_vals, Psi1_1_density, 1); % Integrate along Y
-%             Density1_1D_2 = trapz(Y_vals, Psi1_2_density, 1); % Integrate along Y
-%         end
-
         
         i=i+1;
     end
@@ -172,8 +159,8 @@ for n1D = n_values
     j=j+1;
 end
 
-outputFolder = 'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs';  % Change this to your desired folder name
-%outputFolder = 'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\outputs';
+%outputFolder = 'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs';  % Change this to your desired folder name
+outputFolder = 'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\outputs';
 fileName = 'output_data.mat';
 
 % Check if the folder exists, if not, create it
