@@ -36,7 +36,8 @@ wz = 26*2*pi;    % axial trap frequncy
 %delta_values = linspace(8,7,40);
 delta_values = 1;
 %Omega_values = linspace(4*wr,20*wr,10);
-Omega_values = 1000*2*pi;
+Omega_values = linspace(1000*2*pi,30000*2*pi,20);
+%n_values = [1947306666.6667, 1646506666.6667,1121706666.6667,526506666.6667,91306666.6667];
 %n_values = [3894613333.3333, 3293013333.3333,  2243413333.3333,1053013333.3333, 182613333.3333];
 %n_values = [4186709333.3333 3539989333.3333 2411669333.3333 1131989333.3333 196309333.3333]; % n0 =4.3
 n_values = [4434017280.0000, 3749095680.0000, 2554126080.0000, 1198855680.0000, 207905280.0000];
@@ -63,10 +64,11 @@ KE = zeros(length(Omega_values),length(delta_values));
 j = 1;% scan of densities (N)
 for n1D = n_values
     n1D
-    Om = Omega_values
+    delta = delta_values
+    
     i=1; %scan of detunings
-    for delta = delta_values
-        delta 
+    for Om = Omega_values
+        Om
         %-----------------------------------------------------------
         % Setting the data
         %-----------------------------------------------------------

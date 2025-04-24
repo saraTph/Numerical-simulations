@@ -52,7 +52,7 @@ for i in range(len(Omega_values)):
     g22 = n1D * (4*np.pi* a22) * (T/L**2) 
     g12 = n1D * (4*np.pi* a12) * (T/L**2) 
     
-    gamma[i] = (g11 + g22 - 0.5*g12)/4
+    gamma[i] = (g11 + g22 - 2*g12)/4
     
 gamma = gamma.squeeze()
 
