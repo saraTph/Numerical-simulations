@@ -1,0 +1,185 @@
+% author: Sara Tiengo 
+% date: 30/01/2025
+
+%% GROUND STATE COMPUTATION OF A MULTICOMPONENT BEC WITH COUPLED NONLINEARITIES
+
+%% Setting the method and geometry
+Computation = 'Ground';
+Ncomponents = 2;
+Type = 'BESP'; % method to solve the Continuous Normalized Gradient Flow (CNGF)
+Deltat = 1e-1;
+Stop_time = [];
+Stop_crit = {'MaxNorm',1e-4}; % epsilon
+Method = Method_Var2d(Computation, Ncomponents, Type, Deltat, Stop_time, Stop_crit);
+xmin = -10; % computational domine dimensions
+xmax = 10;
+ymin = -10;
+ymax = 10;
+Nx = 2^7+1; % # grid points
+Ny = 2^7+1;
+Geometry2D = Geometry2D_Var2d(xmin,xmax,ymin,ymax,Nx,Ny);
+Deltax = (xmax - xmin)/Nx;
+
+%% set physical quantities
+
+a_bohr = 0.52917721e-10;
+a11 = (86.4014*a_bohr); 
+a22 = (33.2755*a_bohr);
+a12 = (-53.1022*a_bohr);
+
+wr = 169*2*pi;   % radial trap frequency
+wz = 26*2*pi;    % axial trap frequncy
+
+% define scan values for delta and Omega or n1D
+
+delta_values = linspace(9,-9,40);
+%delta_values = 1;
+
+gamma = linspace(0.01,1.1,20);
+%Omega_values = linspace(1000*2*pi,50000*2*pi,10);
+Omega_values = 1./gamma*1000*2*pi;
+%n_values = [1947306666.6667, 1646506666.6667,1121706666.6667,526506666.6667,91306666.6667];
+%n_values = [3894613333.3333, 3293013333.3333,  2243413333.3333,1053013333.3333, 182613333.3333];
+%n_values = [4186709333.3333 3539989333.3333 2411669333.3333 1131989333.3333 196309333.3333]; % n0 =4.3
+n_values = [4434017280.0000, 3749095680.0000, 2554126080.0000, 1198855680.0000, 207905280.0000];
+%n_values = [4478805333.3333, 3786965333.3333, 2579925333.3333, 1210965333.3333, 210005333.3333]; %n0=4.6
+%n_values = [4868266666.6667, 4116266666.6667,2804266666.6667,1316266666.6667,228266666.6667]; % n0 = 5
+
+
+%% initialize output vectors
+n_col = length(Omega_values);
+n_line = length(n_values);
+
+P = zeros(n_line,n_col);
+P_up = zeros(n_line,n_col);
+P_down = zeros(n_line,n_col);
+energy_1 = zeros(n_line,n_col);
+energy_2 = zeros(n_line,n_col);
+energy_tot = zeros(n_line,n_col);
+IE = zeros(n_line,n_col);
+RE = zeros(n_line,n_col);
+PE = zeros(length(Omega_values),length(delta_values));
+KE = zeros(n_line,n_col);
+
+
+
+%% evaluate ground state
+n=1;
+for delta = delta_values
+    n
+
+    j = 1;% scan of densities (N)
+    for n1D = n_values
+        n1D
+        
+        
+        i=1; %scan of detunings
+        for Om = Omega_values
+            Om
+            %-----------------------------------------------------------
+            % Setting the data
+            %-----------------------------------------------------------
+          
+            %% characteristic lengths
+            T = 1/Om;             % characteristic time
+            L = sqrt(1/wr);       % characteristic legth
+            Lz = sqrt(2/wz);
+    
+            % adimensional parameters
+            gamma_x = wr/Om;      % adimensional trap frequncies along x and y
+            gamma_y = wr/Om;
+            Rabi = Om/Om;         % adimensional Rabi frequency = 1 
+            Delta = 0.5*T/(L^2);  % kinetic beta = T/L^2
+            Beta = 1;             % constant in front of the interaction term
+        
+            % define INTERACTION Adimensional parameters g22, g22, g12
+            g11 = (n1D * (4*pi*a11)) * T/(L^2);
+            g22 = (n1D * (4*pi*a22)) * T/(L^2);
+            g12 = (n1D * (4*pi*a12)) * T/(L^2);
+        
+            %% Define H terms
+        
+            Potential{1,1} = @(X,Y) (1/2)*(gamma_x*X.^2+gamma_y*Y.^2) + (1/2)*(delta);
+            Potential{1,2} = @(X,Y) (1/2)*Rabi;
+            Potential{2,1} = @(X,Y) (1/2)*Rabi;
+            Potential{2,2} = @(X,Y) (1/2)*(gamma_x*X.^2+gamma_y*Y.^2) - (1/2)*(delta);
+        
+            NL{1,1} = @(Phi,X,Y) (g11*(abs(Phi{1})).^2 + g12*(abs(Phi{2})).^2);
+            NL{1,2} = @(Phi,X,Y) 0;
+            NL{2,1} = @(Phi,X,Y) 0;
+            NL{2,2} = @(Phi,X,Y) (g22*(abs(Phi{2})).^2 + g12*(abs(Phi{1})).^2);
+    
+            NLE{1,1} = @(Phi,X,Y) (1/2)*(g11*(abs(Phi{1})).^2 + g12*(abs(Phi{2})).^2);
+            NLE{1,2} = @(Phi,X,Y) 0;
+            NLE{2,1} = @(Phi,X,Y) 0;
+            NLE{2,2} = @(Phi,X,Y) (1/2)*(g22*(abs(Phi{2})).^2 + g12*(abs(Phi{1})).^2);
+        
+            Physics2D = Physics2D_Var2d(Method, Delta, Beta); 
+            Physics2D = Dispersion_Var2d(Method, Physics2D);
+            Physics2D = Potential_Var2d(Method, Physics2D, Potential);
+            Physics2D = Nonlinearity_Var2d(Method, Physics2D, NL, [], NLE);
+           
+            
+            %% Setting the initial data
+            %InitialData_Choice = 1; % Gaussian
+            X0 = 0;
+            Y0 = 0;
+            Phi_0 = InitialData_Var2d_custom(Method, Geometry2D, Physics2D, Rabi, delta, X0, Y0, gamma_x, gamma_y);
+            %[Psi1_density, Psi2_density] = Print2D_Psi(Phi_0, Geometry2D); % 2D plot
+            %[Density_1D_1, Density_1D_2] = Plot1D_DensityProfile(Phi_0, Geometry2D,'inital guess density profile');
+            
+            %% Setting informations and outputs
+            Outputs = OutputsINI_Var2d(Method);
+            Printing = 0;
+            Evo = 300;
+            Draw = 0;
+            Print = Print_Var2d(Printing,Evo,Draw);
+        
+            %-----------------------------------------------------------
+            % Launching computation
+            %-----------------------------------------------------------
+            
+            [Phi_1, Outputs] = GPELab2d(Phi_0,Method,Geometry2D,Physics2D,Outputs,[],Print);
+    
+            % save outputs
+            % spin composition
+            P(j,i) = ComputeSpinPolarization(Phi_1, Geometry2D);
+            [P_up(j,i), P_down(j,i)] = ComputeSpinProbabilities(Phi_1, Geometry2D);
+    
+            % save Energy and Chemical Potential values
+            energy_1(j,i) = Outputs.Energy{1}(end);
+            energy_2(j,i) = Outputs.Energy{2}(end);
+            energy_tot(j,i) = energy_1(j,i) + energy_2(j,i);
+    
+            % Calculate Energies
+            IE(j,i) = InteractionEnergy(Phi_1,g11,g22,g12,Geometry2D);
+            RE(j,i) = RabiEnergy(Phi_1,delta,Rabi,Geometry2D);
+            KE(j,i) = KineticEnergy(Phi_1,Delta,Geometry2D);
+            PE(j,i) = PotentialEnergy(Phi_1,gamma_x,gamma_y,Geometry2D);
+    
+    
+            
+            i=i+1;
+        end
+    
+        
+        j=j+1;
+    end
+
+    outputFolder = 'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\saturation_energy';  % Change this to your desired folder name
+    %outputFolder = 'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\outputs';
+    %fileName = 'output_data.mat';
+    fileName = sprintf('output_data_%d.mat', n);
+    
+    % Check if the folder exists, if not, create it
+    if ~exist(outputFolder, 'dir')
+        mkdir(outputFolder);
+    end
+    
+    % Save the variables into the .mat file inside the folder
+    save(fullfile(outputFolder, fileName), 'Omega_values','delta_values', ...
+        'energy_tot','PE','KE',"IE",'RE', ...
+        'P','P_down','P_up');
+    n=n+1;
+end
+beep;
