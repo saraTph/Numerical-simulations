@@ -24,20 +24,17 @@ a22 = (33.2755*a_bohr)
 a12 = (-53.1022*a_bohr)
 
 # define INTERACTION Adimensional parameters g22, g22, g12
-n1D = 4.3e9
+n1D = 4.6e9
 g11 = (4*np.pi* a11)  
 g22 = (4*np.pi* a22)
 g12 = (4*np.pi* a12) 
 
 
-
-
-
 #%%
 
 N = 41
-# folder_path = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\outputs\saturation_energy"
-folder_path = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\saturation_energy"
+folder_path = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\outputs\saturation_energy"
+# folder_path = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\saturation_energy"
 files_name = [f"output_data_{n}.mat" for n in range(1, N)]
 
 # import delta_values and Omega_values
@@ -75,7 +72,7 @@ g_bar = (g11+g22-2*g12)/4
 g_inf = (g11*g22-g12**2)/(4*g_bar) 
 k = (g11-g22)/(4*g_bar)
 phi = np.linspace(0,np.pi,40)
-g2 = g_inf+g_bar*(np.cos(phi)-k)**2
+g2 = g_inf + g_bar*(np.cos(phi)-k)**2
 
 
 g3 = np.ones((n_Om,n_delta))
@@ -84,15 +81,15 @@ gamma_3b = np.ones((n_Om,n_delta))
 
 for idx, Om in enumerate(Omega_values):
     T = 1/Om             # characteristic time
-    L = np.sqrt(1/wr)    # characteristic legth 
+    L = np.sqrt(1/wr)    # characteristic length 
       
-    gamma_2b[idx,:] = n1D * g2 *T/L**2
+    gamma_2b[idx,:] = n1D * g2 *T #/L**2
     
     g3[idx,:] = -3*g_bar**2/Om * (np.sin(phi))**3*(np.cos(phi)-k)**2
     gamma_3b[idx,:] =  n1D * g3[idx,:] *T/L**2
     
 energy_2b = gamma_2b/2
-energy_3b = gamma_3b/3*n1D
+energy_3b = gamma_3b/3 * n1D
 
 
 #%%
@@ -101,7 +98,7 @@ lw=2
 ls = 14
 # Plotting the expressions
 fig, ax = plt.subplots(1,1,constrained_layout=True, figsize=(9,4))
-delta = 30
+delta = 20
 ax.plot(gamma_2b[:,delta], energy[:,delta], '-', label=fr'energy; $\delta/\Omega$= {delta_values[0]:.2g}', lw=lw, color='r')
 ax.plot(gamma_2b[:,delta], energy_2b[:,delta] + energy_3b[:,delta], label=fr'energy 2-body + 3-body; $\delta/\Omega$= {delta_values[0]:.2g}', lw=lw, color='k')
 ax.set_xlabel(r'$\gamma$', fontsize=14)
