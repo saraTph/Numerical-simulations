@@ -23,11 +23,12 @@ a11 = (86.4014*a_bohr)
 a22 = (33.2755*a_bohr)
 a12 = (-53.1022*a_bohr)
 
+
 #%%
 
 N = 41
-#folder_path = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\outputs\saturation_energy"
-folder_path = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\saturation_energy"
+folder_path = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\outputs\saturation_energy"
+#folder_path = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\saturation_energy"
 files_name = [f"output_data_{n}.mat" for n in range(1, N)]
 
 # import delta_values and Omega_values
@@ -73,22 +74,43 @@ for n, file_name in enumerate(files_name):
     energy[:,n] = (e_tot_avg - RE_avg) 
 
 
+# calculate energy 2-body
+g_bar = (g11+g22-2*g12)/4 * T/L**2*n1D*np.sqrt(1/wz)
+g_inf = (g11*g22-g12**2)/(4*g_bar) *T/L**2*n1D*np.sqrt(1/wz)
+k = (g11-g22)/(4*g_bar) *T/L**2*n1D*np.sqrt(1/wz)
+phi = np.linspace(0,np.pi,40)
+g2 = g_inf+g_bar*(np.cos(phi)-k)**2
+
+energy_2b = (g2[np.newaxis,:]/2) * np.ones((1, n_Om)).T
+
 
 #%%
 
-lw = 2
+lw=2
+ls = 14
 # Plotting the expressions
-# fig, ax = plt.subplots(1,1,constrained_layout=True, figsize=(9,4))
-# ax.plot(gamma, energy[:,0], '-', label=fr'$\delta$= {delta_values[0]:.2g}', lw=lw, color='k')
-# ax.plot(gamma, gamma/2, label=fr'$\delta$= {delta_values[0]:.2g}', lw=lw, color='r')
-# ax.set_xlabel(r'$\gamma$', fontsize=14)
-# ax.set_ylabel(r'$E_{int}/(\hbar\Omega)$', fontsize=14)
+fig, ax = plt.subplots(1,1,constrained_layout=True, figsize=(9,4))
+ax.plot(gamma, energy[:,39], '-', label=fr'$\delta$= {delta_values[0]:.2g}', lw=lw, color='k')
+ax.plot(gamma, energy_2b[:,39], label=fr'$\delta$= {delta_values[0]:.2g}', lw=lw, color='r')
+ax.set_xlabel(r'$\gamma$', fontsize=14)
+ax.set_ylabel(r'$E_{int}/(\hbar\Omega)$', fontsize=14)
 
-plt.imshow(energy, aspect='auto', origin='lower', cmap='Grays',
-           extent=[delta_values[0], delta_values[-1], gamma[0], gamma[-1]])
-plt.colorbar(label=r'$E/(\hbar\Omega)$')  # Adds color scale
-plt.xlabel(r'$\delta$')
-plt.ylabel(r'$\gamma$')
-plt.title('Energy Map')
-plt.show()
 
+tolerance = 0.2  # 10%
+mask = np.abs(energy - energy_2b) < tolerance * energy
+
+fig2D, ax2D = plt.subplots(1, 1, constrained_layout=True, figsize=(5, 4))
+img = ax2D.imshow(energy_2b, aspect='auto', origin='lower', cmap='gray_r',
+                  extent=[delta_values[0], delta_values[-1], gamma[0], gamma[-1]])
+
+# X, Y = np.meshgrid(delta_values, gamma)
+# contour = ax2D.contour(X, Y, mask, levels=[0.5], colors='red', linewidths=2)
+
+fig2D.colorbar(img, ax=ax2D, label=r'$E/(\hbar\Omega)$')
+ax2D.set_xlabel(r'$\delta$', size = ls)
+ax2D.set_ylabel(r'$\gamma$', size = ls)
+ax2D.set_title('Energy Map', size = ls)
+
+
+#%%
+# fig2D.savefig(r'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\energy_saturantion\Figures\energyMap', dpi = 300)
