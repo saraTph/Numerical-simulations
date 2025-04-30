@@ -32,8 +32,9 @@ g12 = (4*np.pi* a12)
 
 #%%
 
-N = 41
-folder_path = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\outputs\saturation_energy"
+N = 17
+# folder_path = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\outputs\saturation_energy"
+folder_path = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\saturation_energy\symmetric case"
 # folder_path = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\saturation_energy"
 files_name = [f"output_data_{n}.mat" for n in range(1, N)]
 
@@ -85,14 +86,14 @@ energy_3b = np.ones((n_Om,n_delta))
 for idx, Om in enumerate(Omega_values):
     T = 1/Om             # characteristic time
     L = np.sqrt(1/wr)    # characteristic length 
+    L_z = np.sqrt(1/wz)
       
-    n1D_avg = n1D
-    gamma[idx] = n1D_avg * g_bar *T/L**2
+    gamma[idx] = n1D * np.sqrt(2*np.pi)*L_z * g_bar *T/L**3
     
     g2 = g_inf + g_bar*(np.cos(phi)-k)**2
-    energy_2b[idx,:] = 1/2 * (n1D_avg * g2 *T/L**2)
+    energy_2b[idx,:] = 1/2 * (n1D * g2 *T/L**2)
     g3 = -3*g_bar**2/Om * (np.sin(phi))**3*(np.cos(phi)-k)**2
-    energy_3b[idx,:] = 1/3 * (g3 * n1D_avg**2 * T/L**2)
+    energy_3b[idx,:] = 1/3 * (g3 * n1D**2 * T/L**2)
 
 
 #%%
@@ -100,15 +101,15 @@ for idx, Om in enumerate(Omega_values):
 lw=2
 ls = 14
 # Plotting the expressions
-fig, ax = plt.subplots(1,1,constrained_layout=True, figsize=(9,4))
-delta = 4
-ax.plot(gamma, energy[:,delta], '-', label=fr'energy; $\delta/\Omega$= {delta_values[0]:.2g}', lw=lw, color='r')
-ax.plot(gamma, energy_2b[:,delta] + 0*energy_3b[:,delta], label=fr'energy 2-body + 3-body; $\delta/\Omega$= {delta_values[0]:.2g}', lw=lw, color='k')
-# ax.plot(delta_values,pop[delta,:])
-# ax.plot(delta_values,pop[0,:])
-ax.set_xlabel(r'$\gamma$', fontsize=14)
-ax.set_ylabel(r'$E_{int}/(\hbar\Omega)$', fontsize=14)
-ax.legend()
+# fig, ax = plt.subplots(1,1,constrained_layout=True, figsize=(9,4))
+# delta = 4
+# ax.plot(gamma, energy[:,delta], '-', label=fr'energy; $\delta/\Omega$= {delta_values[0]:.2g}', lw=lw, color='r')
+# ax.plot(gamma, energy_2b[:,delta] + 0*energy_3b[:,delta], label=fr'energy 2-body + 3-body; $\delta/\Omega$= {delta_values[0]:.2g}', lw=lw, color='k')
+# # ax.plot(delta_values,pop[delta,:])
+# # ax.plot(delta_values,pop[0,:])
+# ax.set_xlabel(r'$\gamma$', fontsize=14)
+# ax.set_ylabel(r'$E_{int}/(\hbar\Omega)$', fontsize=14)
+# ax.legend()
 
 
 
@@ -116,17 +117,17 @@ ax.legend()
 # tolerance = 0.1  # 10%
 # mask = np.abs(energy - (energy_2b+energy_3b)) < tolerance * energy
 
-# fig2D, ax2D = plt.subplots(1, 1, constrained_layout=True, figsize=(5, 4))
-# img = ax2D.imshow(energy, aspect='auto', origin='lower', cmap='Reds',
-#                   extent=[delta_values[0], delta_values[-1], Omega_values[0]/(2*np.pi)/1000, Omega_values[-1]/(2*np.pi)/1000])
+fig2D, ax2D = plt.subplots(1, 1, constrained_layout=True, figsize=(5, 4))
+img = ax2D.imshow(energy, aspect='auto', origin='lower', cmap='Reds',
+                  extent=[delta_values[0], delta_values[-1], Omega_values[0]/(2*np.pi)/1000, Omega_values[-1]/(2*np.pi)/1000])
 
-# # X, Y = np.meshgrid(delta_values, Omega_values)
-# # contour = ax2D.contour(X, Y, mask, levels=[0.5], colors='red', linewidths=2)
+# X, Y = np.meshgrid(delta_values, Omega_values)
+# contour = ax2D.contour(X, Y, mask, levels=[0.5], colors='red', linewidths=2)
 
-# fig2D.colorbar(img, ax=ax2D, label=r'$E/N (\hbar\Omega)$')
-# ax2D.set_xlabel(r'$\delta$', size = ls)
-# ax2D.set_ylabel(r'$\Omega$ (kHz)', size = ls)
-# ax2D.set_title('Energy Map', size = ls)
+fig2D.colorbar(img, ax=ax2D, label=r'$E/N (\hbar\Omega)$')
+ax2D.set_xlabel(r'$\delta$', size = ls)
+ax2D.set_ylabel(r'$\Omega$ (kHz)', size = ls)
+ax2D.set_title('Energy Map', size = ls)
 
 
 #%%

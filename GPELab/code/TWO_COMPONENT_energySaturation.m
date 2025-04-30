@@ -23,9 +23,12 @@ Deltax = (xmax - xmin)/Nx;
 %% set physical quantities
 
 a_bohr = 0.52917721e-10;
-a11 = (86.4014*a_bohr); 
-a22 = (33.2755*a_bohr);
-a12 = (-53.1022*a_bohr);
+% a11 = (86.4014*a_bohr); 
+% a22 = (33.2755*a_bohr);
+% a12 = (-53.1022*a_bohr);
+a11 = (50*a_bohr); 
+a22 = (50*a_bohr);
+a12 = (-49*a_bohr);
 
 wr = 169*2*pi;   % radial trap frequency
 wz = 26*2*pi;    % axial trap frequncy
@@ -166,7 +169,7 @@ for delta = delta_values
         j=j+1;
     end
 
-    outputFolder = 'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\saturation_energy';  % Change this to your desired folder name
+    outputFolder = 'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\saturation_energy\symmetric case';  % Change this to your desired folder name
     %outputFolder = 'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\outputs';
     %fileName = 'output_data.mat';
     fileName = sprintf('output_data_%d.mat', n);
