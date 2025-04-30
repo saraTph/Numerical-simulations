@@ -35,6 +35,7 @@ d = np.linspace(-4,4,100)
 #cotg(d) = theta
 phi = np.linspace(0,np.pi,100)
 g2 = g_inf+g_bar*(np.cos(phi)-k)**2
+# g2 = g_bar*np.ones(len(d))
 
 # 2nd notation
 g = (g11+g22)
