@@ -79,10 +79,10 @@ spin_exp[0,:] = data_spin.get('pop0').squeeze()
 
 lw = 1.5
 fs = 14
-ls = 11
+ls = 10
 
-size_x = 10
-size_y = 4.5
+size_x = 5
+size_y = 4
 
 from matplotlib import cm
 
@@ -97,29 +97,30 @@ labels = [r'$\Omega$ = 30.4 kHz', r'$\Omega$ = 15.2 kHz', r'$\Omega$ = 7.6 kHz',
 
 from matplotlib.ticker import AutoMinorLocator, MultipleLocator
 
-fig, ax = plt.subplots(1,2,constrained_layout=True, figsize=(size_x, size_y))
+fig, ax = plt.subplots(1,1,constrained_layout=True, figsize=(size_x, size_y))
 
 shift = [0.12, 0.122, 0.158, 0.257, 0.257, 0.376]
 #for i in range(np.size(Omega_values)):
 for i in range(0,6):
     Om = Omega_values[i]*2*np.pi
     
-    ax[0].plot(delta_values[i,:], size[i,:]*10**3, label=labels[i], lw=lw, color=colors[i],zorder =1)
-    ax[0].scatter(scan_energy + shift[i], size_exp[i,:], lw=2, marker = '2', color=colors[i])
+    ax.plot(delta_values[i,:], size[i,:]*10**3, lw=lw, color=colors[i],zorder =1)
+    ax.scatter(scan_energy + shift[i], size_exp[i,:], lw=2, marker = '2', color=colors[i], label=labels[i],)
 
-xticks = np.linspace(-8,8,5)
-ax[0].set_xticks(xticks)    
-ax[0].tick_params(labelsize=ls)
-ax[0].set_xlabel(r'$\delta/\Omega$', fontsize=fs)
-ax[0].set_ylabel(r'$\sigma(t_{TOF}= 62.6\ ms)$ (mm)',fontsize = fs)  
-ax[0].set_ylim(-0.01,0.25)  
-ax[0].yaxis.set_major_locator(MultipleLocator(0.05))
-ax[0].yaxis.set_major_formatter('{x:.2f}')
-ax[0].yaxis.set_minor_locator(MultipleLocator(0.01))
+ax.set_xlim(-6.1,6)  
+xticks = np.linspace(-6,6,7)
+ax.set_xticks(xticks)    
+ax.tick_params(labelsize=ls)
+ax.set_xlabel(r'$\delta/\Omega$', fontsize=fs)
+ax.set_ylabel(r'$\sigma(t_{TOF}= 62.6\ ms)$ (mm)',fontsize = fs)  
+ax.set_ylim(-0.01,0.25)  
+ax.yaxis.set_major_locator(MultipleLocator(0.05))
+ax.yaxis.set_major_formatter('{x:.2f}')
+ax.yaxis.set_minor_locator(MultipleLocator(0.01))
 #axS.spines['left'].set_position(('data', 0))
 #ax.spines['left'].set_zorder(10)
-legend = ax[0].legend( 
-    loc='best',
+legend = ax.legend( 
+    loc='center left',
     fontsize=ls,              # Legend font size
     frameon=True,            # Show legend box
     fancybox=False,           # Rounded box corners
@@ -127,45 +128,46 @@ legend = ax[0].legend(
     edgecolor='gray',        # Border color
     facecolor='white'        # Background color
 )
-ax[0].axhline(y=0, color='k', linestyle='--', linewidth=0.8)
-ax[0].axvline(x=0, color='k', linestyle='--', linewidth=0.8)
+ax.axhline(y=0, color='k', linestyle='--', linewidth=0.8)
+ax.axvline(x=0, color='k', linestyle='--', linewidth=0.8)
 
 
-for i in range(6):
-    Om = Omega_values[i] *2*np.pi
+# for i in range(6):
+#     Om = Omega_values[i] *2*np.pi
     
-    ax[1].plot(delta_values[i,:], pop[i,:], lw=lw, color=colors[i], label=labels[i])
-    ax[1].scatter(scan_spin, spin_exp[i,:], lw=2, marker = '2', color=colors[i])
+#     #ax[1].plot(delta_values[i,:], pop[i,:], lw=lw, color=colors[i], label=labels[i])
+#     ax[1].scatter(scan_spin, spin_exp[i,:], lw=2, marker = '2', color=colors[i])
 
 
-yticks = np.linspace(0,1,5)
-ytick_labels = [r'$0$', r'$0.25$', r'$0.5$', r'$0.75$' , r'$1$']
-ax[1].set_yticks(yticks)
-ax[1].tick_params(labelsize=ls)
-ax[1].set_xlabel(r'$\delta/\Omega$', fontsize=fs)
-ax[1].set_ylabel(r'$P_{\uparrow}$',fontsize = fs)
+# yticks = np.linspace(0,1,5)
+# ytick_labels = [r'$0$', r'$0.25$', r'$0.5$', r'$0.75$' , r'$1$']
+# ax[1].set_yticks(yticks)
+# ax[1].tick_params(labelsize=ls)
+# ax[1].set_xlabel(r'$\delta/\Omega$', fontsize=fs)
+# ax[1].set_ylabel(r'$P_{\uparrow}$',fontsize = fs)
 
-ax[1].axhline(y=0, color='k', linestyle='--', linewidth=0.8)
-ax[1].axvline(x=0, color='k', linestyle='--', linewidth=0.8)
+# ax[1].axhline(y=0, color='k', linestyle='--', linewidth=0.8)
+# ax[1].axvline(x=0, color='k', linestyle='--', linewidth=0.8)
 
+
+
+
+# # # Create the zoomed-in inset axes
 
 from mpl_toolkits.axes_grid1.inset_locator import zoomed_inset_axes, mark_inset
-
-
-
-# Create the zoomed-in inset axes
-axins = zoomed_inset_axes(ax[0], zoom=2.5, loc='lower right')  # zoom factor, position
+axins = zoomed_inset_axes(ax, zoom=2.5, loc='lower right')  # zoom factor, position
 
 for i in range(0, 6):
     Om = Omega_values[i]*2*np.pi
     axins.plot(delta_values[i,:], size[i,:]*10**3, lw=lw, color=colors[i], zorder=1)
     axins.scatter(scan_energy + shift[i], size_exp[i,:], lw=2, marker='2', color=colors[i])
 
-axins.set_xlim(-1.25, 1.5)   # example range: adjust to your region of interest
+axins.set_xlim(-0.6, 1.1)   # example range: adjust to your region of interest
 axins.set_ylim(0.02, 0.05)
 axins.set_xticklabels([])
 axins.set_yticklabels([])
-mark_inset(ax[0], axins, loc1=2, loc2=3, fc="none", ec="0.5")
+mark_inset(ax, axins, loc1=2, loc2=3, fc="none", ec="0.5")
+
 #%%
 
-# fig.savefig(r'C:\Users\Sarah\OneDrive\Documenti\InstOptique\Slides and posters\energy&pop.png', dpi = 600)
+fig.savefig(r'C:\Users\Sarah\OneDrive\Documenti\InstOptique\Slides and posters\energy&pop.png', dpi = 600)
