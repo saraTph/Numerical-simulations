@@ -32,22 +32,18 @@ wz = 26*2*pi;    % axial trap frequncy
 
 % define scan values for delta and Omega or n1D
 
-delta_values = linspace(3,-3,40);
+delta_values = linspace(3,-3,5);
 delta_values = [9 8 7 6 5 4 delta_values -4 -5 -6 -7 -8 -9];
-%Omega_values = [30400 15200 7600 3800 1900 950];
-Omega_values = 3800;
-n_values = [3573307733.3333 3021339733.3333 2058331733.3333 966139733.3333 167547733.3333]; %n0 = 3.67
-%n_values = [1947306666.6667, 1646506666.6667,1121706666.6667,526506666.6667,91306666.6667];
-%n_values = [3894613333.3333, 3293013333.3333,  2243413333.3333,1053013333.3333, 182613333.3333];
+Omega_values = [30400 15200 7600 3800 1900 950];
+%n_values = [3573307733.3333 3021339733.3333 2058331733.3333 966139733.3333 167547733.3333]; %n0 = 3.67
 %n_values = [4186709333.3333 3539989333.3333 2411669333.3333 1131989333.3333 196309333.3333]; % n0 =4.3
-%n_values = [4434017280.0000, 3749095680.0000, 2554126080.0000, 1198855680.0000, 207905280.0000];
-%n_values = [4478805333.3333, 3786965333.3333, 2579925333.3333, 1210965333.3333, 210005333.3333]; %n0=4.6
+n_values = [4478805333.3333, 3786965333.3333, 2579925333.3333, 1210965333.3333, 210005333.3333]; %n0=4.6
 %n_values = [4868266666.6667, 4116266666.6667,2804266666.6667,1316266666.6667,228266666.6667]; % n0 = 5
 
 
 %% initialize output vectors
-n_col = length(Omega_values);
 n_line = length(n_values);
+n_col = length(delta_values);
 
 P = zeros(n_line,n_col);
 P_up = zeros(n_line,n_col);
@@ -57,7 +53,7 @@ energy_2 = zeros(n_line,n_col);
 energy_tot = zeros(n_line,n_col);
 IE = zeros(n_line,n_col);
 RE = zeros(n_line,n_col);
-PE = zeros(length(Omega_values),length(delta_values));
+PE = zeros(n_line,n_col);
 KE = zeros(n_line,n_col);
 
 
@@ -67,7 +63,7 @@ j = 1;% scan of densities (N)
 for n1D = n_values
     n1D
     %delta = delta_values
-    Om = Omega_values
+    Om = Omega_values(1)*2*pi
     
     i=1; %scan of detunings
     for delta = delta_values

@@ -16,13 +16,12 @@ import os
 #data = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\exp_data\MFdata')
 #mat = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\outputs\output_data.mat')
 
-#scan = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\exp_data_energy') 
 data = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\exp_data_energy') 
 mat = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\output_data.mat')
 
 # import experimental data
-scan_exp0 = data.get('valX').squeeze()
-size_exp0 = data.get('data5').squeeze()
+# scan_exp0 = data.get('valX').squeeze()
+# size_exp0 = data.get('data5').squeeze()
 
 #import stimulaiton data
 delta_values = mat.get('delta_values').squeeze()
@@ -36,7 +35,7 @@ e_tot = mat.get('energy_tot')
 
 
 #%%
-Om = Omega_values
+Om = Omega_values[0]
 
 wr = 169*2*np.pi #Hz
 wz = 26*2*np.pi  #Hz
@@ -53,7 +52,7 @@ pop_avg = np.dot(weights, P_down)
 e_tot_avg = np.dot(weights, e_tot)
 RE_avg = np.dot(weights, RE)
 IE_avg = np.dot(weights, IE)
-#PE_avg = np.dot(weights, PE)
+PE_avg = np.dot(weights, PE)
 KE_avg = np.dot(weights, KE)
 
 #%% Plots energy and pop
@@ -95,8 +94,7 @@ sizeBEC = v * t_tof
 
 axS.plot(delta_values.T, sizeBEC*10**3, label='avg', lw=lw, color=colors[i],zorder =1)
 
-#axS.scatter(scan_exp5+0.25, size_exp5, marker = '.' ,label='exp', lw=lw, color='black' ,zorder =1)
-#axS.scatter(scan_exp0 +  0.09, size_exp0, marker = '.' ,label='exp', lw=lw, color='black' ,zorder =1)
+
     
 xticks = np.linspace(-8,8,17)
 axS.set_xticks(xticks)
@@ -109,8 +107,8 @@ axS.grid()
 
 #%% Export
 #location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error"
-location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\GPE-output-analysis\Export\MF_tiemann_3.6n0"
+location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\GPE-output-analysis\Export\Omega30kHz_n0scan"
 
-# outarray = np.vstack((e_rel, sizeBEC, pop_avg, delta_values)).T
-# header = 'energy \t size (m) \t pop \t delta_scan'
-# np.savetxt(os.path.join(location, 'sim_2.txt'), outarray, header=header, delimiter='\t')
+outarray = np.vstack((e_rel, sizeBEC, pop_avg, delta_values)).T
+header = 'energy \t size (m) \t pop \t delta_scan'
+np.savetxt(os.path.join(location, 'sim_4.txt'), outarray, header=header, delimiter='\t')

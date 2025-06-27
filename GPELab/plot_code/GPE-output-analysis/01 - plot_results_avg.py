@@ -15,8 +15,8 @@ import os
 #load experimntal data and simulation results
 data_energy = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\exp_data_energy') 
 data_spin = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\exp_data_spin') 
-# loc_sim = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\GPE-output-analysis\Export\MF_tiemann_3.6n0"
-loc_sim = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\GPE-output-analysis\Export\MF_tiemann_4.6n0_TrueOmega"
+loc_sim = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\GPE-output-analysis\Export\MF_tiemann_3.6n0"
+# loc_sim = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\GPE-output-analysis\Export\MF_tiemann_4.6n0_TrueOmega"
 
 Omega_values = [30400, 15200, 7600, 3800, 1900, 950]
 
@@ -46,8 +46,8 @@ en[1,:], size[1,:], pop[1,:], delta_values[1,:] = np.genfromtxt(file, delimiter=
 file = os.path.join(loc_sim, 'sim_2.txt')
 en[2,:], size[2,:], pop[2,:], delta_values[2,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
-# file = os.path.join(loc_sim, 'sim_3.txt')
-# en[3,:], size[3,:], pop[3,:], delta_values[3,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
+file = os.path.join(loc_sim, 'sim_3.txt')
+en[3,:], size[3,:], pop[3,:], delta_values[3,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
 # file = os.path.join(loc_sim, 'sim_4.txt')
 # en[4,:], size[4,:], pop[4,:], delta_values[4,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
@@ -102,7 +102,7 @@ fig, ax = plt.subplots(1,1,constrained_layout=True, figsize=(size_x, size_y))
 
 shift = [0.12, 0.122, 0.158, 0.257, 0.257, 0.376]
 #for i in range(np.size(Omega_values)):
-for i in range(0,3):
+for i in range(0,4):
     Om = Omega_values[i]*2*np.pi
     
     ax.plot(delta_values[i,:], size[i,:]*10**3, lw=lw, color=colors[i],zorder =1)
