@@ -26,7 +26,8 @@ F_sweep = np.ones((len(Omega_values),len_sim))
 kinEn_sweep = np.ones((len(Omega_values),len_sim))
 
 #location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\kinEnergy_sweep"
-location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\kinEnergy_sweep"
+location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\FORT2 off - error\Export\kinEnergy_sweep"
+
 
 file = os.path.join(location, 'kinEn_sweep_0.txt')
 delta_sweep[0,:], F_sweep[0,:], kinEn_sweep[0,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)

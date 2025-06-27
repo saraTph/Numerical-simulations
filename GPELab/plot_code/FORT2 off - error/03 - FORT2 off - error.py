@@ -12,13 +12,13 @@ import os
 
 #%%
 #location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\FORT2 off - error"
-location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\FORT2 off - error"
+location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\FORT2 off - error\Export\FORT2 off - error"
 file = os.path.join(location, 'optimal_Time-FORT2off.txt')
 Omega_values, time_FORT2off = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
 
 #location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\kinEnergy_sweep"
-location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\kinEnergy_sweep"
+location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\FORT2 off - error\Export\kinEnergy_sweep"
 
 Omega_values = np.array([30400, 15200, 7600, 3800, 1900, 950])
 len_sim = 64
@@ -36,7 +36,7 @@ for i in range(len(Omega_values)):
 
 
 # store energy for each Omega
-location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error\DeltaE_sim"
+location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\FORT2 off - error\Export\DeltaE_sim"
 num_files = 6
 num_columns = 65 
 en = np.zeros((num_files, num_columns))
@@ -125,4 +125,4 @@ ax1.legend()
 
 
 #%%
-#fig1.savefig(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Figures\FORT2 off\FORT2off-error', dpi = 300)
+fig1.savefig(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\FORT2 off - error\Figures', dpi = 300)

@@ -16,12 +16,12 @@ import os
 #data = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\exp_data\MFdata')
 #mat = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\outputs\output_data.mat')
 
-scan = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\scan') 
-data = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\MFdata') 
+#scan = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\exp_data_energy') 
+data = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\exp_data_energy') 
 mat = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\output_data.mat')
 
 # import experimental data
-scan_exp0 = scan.get('valX').squeeze()
+scan_exp0 = data.get('valX').squeeze()
 size_exp0 = data.get('data5').squeeze()
 
 #import stimulaiton data
@@ -53,7 +53,7 @@ pop_avg = np.dot(weights, P_down)
 e_tot_avg = np.dot(weights, e_tot)
 RE_avg = np.dot(weights, RE)
 IE_avg = np.dot(weights, IE)
-PE_avg = np.dot(weights, PE)
+#PE_avg = np.dot(weights, PE)
 KE_avg = np.dot(weights, KE)
 
 #%% Plots energy and pop
@@ -108,9 +108,9 @@ axS.legend()
 axS.grid()
 
 #%% Export
-location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error"
-#location = r"C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\plot_code\Export\MF_tiemann_5n0"
+#location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error"
+location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\GPE-output-analysis\Export\MF_tiemann_3.6n0"
 
 # outarray = np.vstack((e_rel, sizeBEC, pop_avg, delta_values)).T
 # header = 'energy \t size (m) \t pop \t delta_scan'
-# np.savetxt(os.path.join(location, 'sim_4_4.554n0.txt'), outarray, header=header, delimiter='\t')
+# np.savetxt(os.path.join(location, 'sim_2.txt'), outarray, header=header, delimiter='\t')

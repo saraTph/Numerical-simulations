@@ -15,6 +15,7 @@ import os
 #load experimntal data and simulation results
 data_energy = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\exp_data_energy') 
 data_spin = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\exp_data_spin') 
+# loc_sim = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\GPE-output-analysis\Export\MF_tiemann_3.6n0"
 loc_sim = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\GPE-output-analysis\Export\MF_tiemann_4.6n0_TrueOmega"
 
 Omega_values = [30400, 15200, 7600, 3800, 1900, 950]
@@ -45,14 +46,14 @@ en[1,:], size[1,:], pop[1,:], delta_values[1,:] = np.genfromtxt(file, delimiter=
 file = os.path.join(loc_sim, 'sim_2.txt')
 en[2,:], size[2,:], pop[2,:], delta_values[2,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
-file = os.path.join(loc_sim, 'sim_3.txt')
-en[3,:], size[3,:], pop[3,:], delta_values[3,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
+# file = os.path.join(loc_sim, 'sim_3.txt')
+# en[3,:], size[3,:], pop[3,:], delta_values[3,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
-file = os.path.join(loc_sim, 'sim_4.txt')
-en[4,:], size[4,:], pop[4,:], delta_values[4,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
+# file = os.path.join(loc_sim, 'sim_4.txt')
+# en[4,:], size[4,:], pop[4,:], delta_values[4,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
-file = os.path.join(loc_sim, 'sim_5.txt')
-en[5,:], size[5,:], pop[5,:], delta_values[5,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
+# file = os.path.join(loc_sim, 'sim_5.txt')
+# en[5,:], size[5,:], pop[5,:], delta_values[5,:] = np.genfromtxt(file, delimiter='\t', skip_header=1, comments='#', unpack=True)
 
 # import experimental data
 scan_energy = data_energy.get('valX').squeeze()
@@ -101,7 +102,7 @@ fig, ax = plt.subplots(1,1,constrained_layout=True, figsize=(size_x, size_y))
 
 shift = [0.12, 0.122, 0.158, 0.257, 0.257, 0.376]
 #for i in range(np.size(Omega_values)):
-for i in range(0,6):
+for i in range(0,3):
     Om = Omega_values[i]*2*np.pi
     
     ax.plot(delta_values[i,:], size[i,:]*10**3, lw=lw, color=colors[i],zorder =1)
@@ -154,19 +155,19 @@ ax.axvline(x=0, color='k', linestyle='--', linewidth=0.8)
 
 # # # Create the zoomed-in inset axes
 
-from mpl_toolkits.axes_grid1.inset_locator import zoomed_inset_axes, mark_inset
-axins = zoomed_inset_axes(ax, zoom=2.5, loc='lower right')  # zoom factor, position
+# from mpl_toolkits.axes_grid1.inset_locator import zoomed_inset_axes, mark_inset
+# axins = zoomed_inset_axes(ax, zoom=2.5, loc='lower right')  # zoom factor, position
 
-for i in range(0, 6):
-    Om = Omega_values[i]*2*np.pi
-    axins.plot(delta_values[i,:], size[i,:]*10**3, lw=lw, color=colors[i], zorder=1)
-    axins.scatter(scan_energy + shift[i], size_exp[i,:], lw=2, marker='2', color=colors[i])
+# for i in range(0, 6):
+#     Om = Omega_values[i]*2*np.pi
+#     axins.plot(delta_values[i,:], size[i,:]*10**3, lw=lw, color=colors[i], zorder=1)
+#     axins.scatter(scan_energy + shift[i], size_exp[i,:], lw=2, marker='2', color=colors[i])
 
-axins.set_xlim(-0.6, 1.1)   # example range: adjust to your region of interest
-axins.set_ylim(0.02, 0.05)
-axins.set_xticklabels([])
-axins.set_yticklabels([])
-mark_inset(ax, axins, loc1=2, loc2=3, fc="none", ec="0.5")
+# axins.set_xlim(-0.6, 1.1)   # example range: adjust to your region of interest
+# axins.set_ylim(0.02, 0.05)
+# axins.set_xticklabels([])
+# axins.set_yticklabels([])
+# mark_inset(ax, axins, loc1=2, loc2=3, fc="none", ec="0.5")
 
 #%%
 

@@ -34,8 +34,7 @@ wz = 26*2*pi;    % axial trap frequncy
 
 delta_values = linspace(3,-3,40);
 delta_values = [9 8 7 6 5 4 delta_values -4 -5 -6 -7 -8 -9];
-%Omega_values = [30400 15200 7600 3800 1900 950];
-Omega_values = 3800;
+Omega_values = [30400 15200 7600 3800 1900 950];
 n_values = [3573307733.3333 3021339733.3333 2058331733.3333 966139733.3333 167547733.3333]; %n0 = 3.67
 %n_values = [1947306666.6667, 1646506666.6667,1121706666.6667,526506666.6667,91306666.6667];
 %n_values = [3894613333.3333, 3293013333.3333,  2243413333.3333,1053013333.3333, 182613333.3333];
@@ -67,12 +66,11 @@ j = 1;% scan of densities (N)
 for n1D = n_values
     n1D
     %delta = delta_values
-    Om = Omega_values
     
     i=1; %scan of detunings
     for delta = delta_values
         delta
-        
+        Om = Omega;
         %-----------------------------------------------------------
         % Setting the data
         %-----------------------------------------------------------
@@ -164,7 +162,7 @@ for n1D = n_values
 end
 
 %outputFolder = 'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs';  % Change this to your desired folder name
-outputFolder = 'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs';
+outputFolder = 'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\outputs';
 fileName = 'output_data.mat';
 
 % Check if the folder exists, if not, create it
