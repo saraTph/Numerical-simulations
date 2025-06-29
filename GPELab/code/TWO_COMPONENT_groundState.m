@@ -159,8 +159,8 @@ for n1D = n_values
     j=j+1;
 end
 
-%outputFolder = 'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs';  % Change this to your desired folder name
-outputFolder = 'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs';
+outputFolder = 'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\outputs';  % Change this to your desired folder name
+%outputFolder = 'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs';
 fileName = 'output_data.mat';
 
 % Check if the folder exists, if not, create it
