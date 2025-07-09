@@ -17,7 +17,7 @@ import os
 #mat = scipy.io.loadmat(r'C:\Users\sarat\OneDrive\Documenti\GitHub\Numerical-simulations\GPELab\outputs\output_data.mat')
 
 data = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\exp_data\exp_data_energy') 
-mat = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\output_data.mat')
+mat = scipy.io.loadmat(r'C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\outputs\output_data_6.mat')
 
 # import experimental data
 # scan_exp0 = data.get('valX').squeeze()
@@ -35,7 +35,7 @@ e_tot = mat.get('energy_tot')
 
 
 #%%
-Om = Omega_values[2]
+Om = Omega_values[5]
 
 wr = 169*2*np.pi #Hz
 wz = 26*2*np.pi  #Hz
@@ -107,8 +107,8 @@ axS.grid()
 
 #%% Export
 #location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\Export\FORT2 off-error"
-location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\GPE-output-analysis\Export\MF_tiemann_3.6n0"
+location = r"C:\Users\Sarah\Documents\GitHub\Numerical-simulations\GPELab\plot_code\GPE-output-analysis\Export\MF_tiemann_4.41n0"
 
-# outarray = np.vstack((e_rel, sizeBEC, pop_avg, delta_values)).T
-# header = 'energy \t size (m) \t pop \t delta_scan'
-# np.savetxt(os.path.join(location, 'sim_2.txt'), outarray, header=header, delimiter='\t')
+outarray = np.vstack((e_rel, sizeBEC, pop_avg, delta_values)).T
+header = 'energy \t size (m) \t pop \t delta_scan'
+np.savetxt(os.path.join(location, 'sim_5.txt'), outarray, header=header, delimiter='\t')

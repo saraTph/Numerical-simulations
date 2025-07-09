@@ -7,7 +7,7 @@
 Computation = 'Ground';
 Ncomponents = 2;
 Type = 'BESP'; % method to solve the Continuous Normalized Gradient Flow (CNGF)
-Deltat = 2e-1;
+Deltat = 1e-1;
 Stop_time = [];
 Stop_crit = {'MaxNorm',1e-4}; % epsilon
 Method = Method_Var2d(Computation, Ncomponents, Type, Deltat, Stop_time, Stop_crit);
@@ -35,8 +35,9 @@ wz = 26*2*pi;    % axial trap frequncy
 delta_values = linspace(3,-3,40);
 delta_values = [9 8 7 6 5 4 delta_values -4 -5 -6 -7 -8 -9];
 Omega_values = [30400 15200 7600 3800 1900 950]*2*pi;
-n_values = [3573307733.3333 3021339733.3333 2058331733.3333 966139733.3333 167547733.3333]; %n0 = 3.67
+%n_values = [3573307733.3333 3021339733.3333 2058331733.3333 966139733.3333 167547733.3333]; %n0 = 3.67
 %n_values = [4186709333.3333 3539989333.3333 2411669333.3333 1131989333.3333 196309333.3333]; % n0 =4.3
+n_values = [4293811200.0000 3630547200.0000 2473363200.0000 1160947200.0000 201331200.0000]; %n0=4.41
 %n_values = [4478805333.3333, 3786965333.3333, 2579925333.3333, 1210965333.3333, 210005333.3333]; %n0=4.6
 %n_values = [4868266666.6667, 4116266666.6667,2804266666.6667,1316266666.6667,228266666.6667]; % n0 = 5
 
@@ -63,7 +64,7 @@ j = 1;% scan of densities (N)
 for n1D = n_values
     n1D
     %delta = delta_values
-    Om = Omega_values(4)
+    Om = Omega_values(6)
     
     i=1; %scan of detunings
     for delta = delta_values
